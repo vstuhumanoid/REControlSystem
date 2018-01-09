@@ -77,5 +77,4 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
-.pro
-.user
+*.user
