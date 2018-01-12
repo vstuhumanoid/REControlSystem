@@ -13,8 +13,13 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    RobotDriver/AR60xSendPacket.cpp \
+    RobotDriver/AR60xRecvPacket.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += mainwindow.h \
+    RobotDriver/AR60xSendPacket.h \
+    RobotDriver/AR60xRecvPacket.h \
+    RobotDriver/ar60xpacketdefinition.h
 
 FORMS    += mainwindow.ui
