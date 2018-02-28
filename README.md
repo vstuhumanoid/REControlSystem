@@ -1,2 +1,2 @@
 # REControlSystem
-Robot Embedded Control System for AR-600E
+Robot Embedded Control System for AR60x
