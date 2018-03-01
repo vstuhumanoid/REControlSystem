@@ -22,9 +22,6 @@
     <Filter Include="Заголовочные файлы\HardwareInterfaces">
       <UniqueIdentifier>{57c13bc3-4870-4e5f-aa1f-5beea11eec64}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Файлы исходного кода\HardwareInterfaces">
-      <UniqueIdentifier>{8e2d463f-0d7b-44e6-b193-7e37de88cb27}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -66,23 +63,14 @@
     <ClInclude Include="Elements\AdditionalSettings.h">
       <Filter>Заголовочные файлы\Elements</Filter>
     </ClInclude>
+    <ClInclude Include="Elements\JointState.h">
+      <Filter>Заголовочные файлы\Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="Elements\PIDGates.h">
+      <Filter>Заголовочные файлы\Elements</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="HardwareInterfaces\IAR60xJointState.cpp">
-      <Filter>Файлы исходного кода\HardwareInterfaces</Filter>
-    </ClCompile>
-    <ClCompile Include="HardwareInterfaces\IAR60xPowerControl.cpp">
-      <Filter>Файлы исходного кода\HardwareInterfaces</Filter>
-    </ClCompile>
-    <ClCompile Include="HardwareInterfaces\IAR60xPowerState.cpp">
-      <Filter>Файлы исходного кода\HardwareInterfaces</Filter>
-    </ClCompile>
-    <ClCompile Include="HardwareInterfaces\IAR60xSensorState.cpp">
-      <Filter>Файлы исходного кода\HardwareInterfaces</Filter>
-    </ClCompile>
-    <ClCompile Include="HardwareInterfaces\IAR60xJointControl.cpp">
-      <Filter>Файлы исходного кода\HardwareInterfaces</Filter>
-    </ClCompile>
     <ClCompile Include="Elements\JointSettings.cpp">
       <Filter>Файлы исходного кода\Elements</Filter>
     </ClCompile>
@@ -101,9 +89,15 @@
     <ClCompile Include="Elements\AdditionalSettings.cpp">
       <Filter>Файлы исходного кода\Elements</Filter>
     </ClCompile>
+    <ClCompile Include="Elements\JointState.cpp">
+      <Filter>Файлы исходного кода\Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="Elements\PIDGates.cpp">
+      <Filter>Файлы исходного кода\Elements</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="AR60xDriver.rc">
+    <ResourceCompile Include="A60xDriver.rc">
       <Filter>Файлы ресурсов</Filter>
     </ResourceCompile>
   </ItemGroup>

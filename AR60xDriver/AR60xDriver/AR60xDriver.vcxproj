@@ -136,6 +136,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Elements\AdditionalSettings.h" />
+    <ClInclude Include="Elements\JointState.h" />
+    <ClInclude Include="Elements\PIDGates.h" />
     <ClInclude Include="Elements\PowerSettings.h" />
     <ClInclude Include="Elements\PowerState.h" />
     <ClInclude Include="Elements\SensorState.h" />
@@ -150,19 +152,16 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Elements\AdditionalSettings.cpp" />
+    <ClCompile Include="Elements\JointState.cpp" />
+    <ClCompile Include="Elements\PIDGates.cpp" />
     <ClCompile Include="Elements\PowerSettings.cpp" />
     <ClCompile Include="Elements\PowerState.cpp" />
     <ClCompile Include="Elements\SensorState.cpp" />
     <ClCompile Include="Elements\JointSettings.cpp" />
-    <ClCompile Include="HardwareInterfaces\IAR60xJointControl.cpp" />
-    <ClCompile Include="HardwareInterfaces\IAR60xJointState.cpp" />
-    <ClCompile Include="HardwareInterfaces\IAR60xPowerControl.cpp" />
-    <ClCompile Include="HardwareInterfaces\IAR60xPowerState.cpp" />
-    <ClCompile Include="HardwareInterfaces\IAR60xSensorState.cpp" />
     <ClCompile Include="IAR60xDriver.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="AR60xDriver.rc" />
+    <ResourceCompile Include="A60xDriver.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

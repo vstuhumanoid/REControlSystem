@@ -1,0 +1,11 @@
+﻿  IAR60xDriver.cpp
+  JointSettings.cpp
+  SensorState.cpp
+  PowerState.cpp
+  PowerSettings.cpp
+  PIDGates.cpp
+  JointState.cpp
+  AdditionalSettings.cpp
+  Создание кода...
+LINK : warning LNK4068: ярЁрьхЄЁ /MACHINE эх єърчрэ; яЁшэшьрхЄё  яю єьюыўрэш■ эр X86
+  AR60xDriver.vcxproj -> D:\TARASOV_DEV\GIT-HUB\REControlSystem\AR60xDriver\Debug\AR60xDriver.lib

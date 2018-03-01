@@ -1,7 +1,5 @@
 #include "AdditionalSettings.h"
 
-
-
 AdditionalSettings::AdditionalSettings()
 {
 }
