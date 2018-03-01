@@ -135,6 +135,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AR60xDriver.h" />
     <ClInclude Include="Elements\AdditionalSettings.h" />
     <ClInclude Include="Elements\JointState.h" />
     <ClInclude Include="Elements\PIDGates.h" />
@@ -147,10 +148,11 @@
     <ClInclude Include="HardwareInterfaces\IAR60xPowerControl.h" />
     <ClInclude Include="HardwareInterfaces\IAR60xPowerState.h" />
     <ClInclude Include="HardwareInterfaces\IAR60xSensorState.h" />
-    <ClInclude Include="IAR60xDriver.h" />
+    <ClInclude Include="IAR60xControl.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AR60xDriver.cpp" />
     <ClCompile Include="Elements\AdditionalSettings.cpp" />
     <ClCompile Include="Elements\JointState.cpp" />
     <ClCompile Include="Elements\PIDGates.cpp" />
@@ -158,7 +160,6 @@
     <ClCompile Include="Elements\PowerState.cpp" />
     <ClCompile Include="Elements\SensorState.cpp" />
     <ClCompile Include="Elements\JointSettings.cpp" />
-    <ClCompile Include="IAR60xDriver.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="A60xDriver.rc" />
