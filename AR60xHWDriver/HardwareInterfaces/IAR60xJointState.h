@@ -6,6 +6,7 @@
 
 using SupplyState = PowerState::PowerSupplyState;
 using JointLimits = JointSettings::JointLimits;
+using PIDGates = JointSettings::PIDGates;
 
 class IAR60xJointState
 {
@@ -19,5 +20,6 @@ public:
     virtual SupplyState JointGetSupplyState(int joint) = 0;
     virtual JointLimits JointGetLimits(int joint) = 0;
     virtual void JointGetEnable(int joint) = 0;
+    virtual PIDGates JointGetGates(int joint) = 0;
 };
 

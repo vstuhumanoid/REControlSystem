@@ -1,18 +1,28 @@
 #pragma once
 
 /*
-* Настройки блока питания
+* РќР°СЃС‚СЂРѕР№РєРё Р±Р»РѕРєР° РїРёС‚Р°РЅРёСЏ
 */
 class PowerSettings
 {
 public:
 
-	bool isPower12VOn; // Включен источник 12 Вольт
-	bool isPower6V1On; // Включен источник 6 Вольт (1)
-	bool isPower6V2On; // Включен источник 6 Вольт (2)
-	bool isPower8V1On; // Включен источник 8 Вольт (1)
-	bool isPower8V2On; // Включен источник 8 Вольт (2)
-	bool isPower48VOn; // Включен источник 48 Вольт
+    enum Powers
+    {
+        Power12V,
+        Power6V1,
+        Power6V2,
+        Power8V1,
+        Power8V2,
+        Power48V
+    };
+
+	bool isPower12VOn; // Р’РєР»СЋС‡РµРЅ РёСЃС‚РѕС‡РЅРёРє 12 Р’РѕР»СЊС‚
+	bool isPower6V1On; // Р’РєР»СЋС‡РµРЅ РёСЃС‚РѕС‡РЅРёРє 6 Р’РѕР»СЊС‚ (1)
+	bool isPower6V2On; // Р’РєР»СЋС‡РµРЅ РёСЃС‚РѕС‡РЅРёРє 6 Р’РѕР»СЊС‚ (2)
+	bool isPower8V1On; // Р’РєР»СЋС‡РµРЅ РёСЃС‚РѕС‡РЅРёРє 8 Р’РѕР»СЊС‚ (1)
+	bool isPower8V2On; // Р’РєР»СЋС‡РµРЅ РёСЃС‚РѕС‡РЅРёРє 8 Р’РѕР»СЊС‚ (2)
+	bool isPower48VOn; // Р’РєР»СЋС‡РµРЅ РёСЃС‚РѕС‡РЅРёРє 48 Р’РѕР»СЊС‚
 
 	PowerSettings();
 	~PowerSettings();

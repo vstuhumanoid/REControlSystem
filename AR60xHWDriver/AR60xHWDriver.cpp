@@ -72,4 +72,182 @@ void AR60xHWDriver::saveDesc(std::__cxx11::string fileName)
     JSONSerializer serializer;
     serializer.setDesc(desc);
     serializer.serialize(fileName);
+    serializer.deserialize(fileName);
+}
+
+void AR60xHWDriver::generateDesc(std::string fileName)
+{
+    JointInformation joint;
+
+    joint.jointNumber = 1;
+    joint.channel = 1;
+    joint.jointName = "Стопа Y (R)";
+    joint.offset = -114;
+    joint.gates.propGate = 900;
+    joint.gates.intGate = 2;
+    joint.gates.diffGate = 1;
+    joint.limits.lowerLimit = -1500;
+    joint.limits.upperLimit = 1500;
+    joint.isReverce = false;
+    joint.isEnable = true;
+
+    desc->joints[joint.jointNumber] = joint;
+
+    joint.jointNumber = 2;
+    joint.channel = 2;
+    joint.jointName = "Стопа X (R)";
+    joint.offset = -5361;
+    joint.gates.propGate = 900;
+    joint.gates.intGate = 2;
+    joint.gates.diffGate = 1;
+    joint.limits.lowerLimit = -4000;
+    joint.limits.upperLimit = 8000;
+    joint.isReverce = false;
+    joint.isEnable = true;
+
+    desc->joints[joint.jointNumber] = joint;
+
+    joint.jointNumber = 3;
+    joint.channel = 3;
+    joint.jointName = "Колено (R)";
+    joint.offset = -7804;
+    joint.gates.propGate = 900;
+    joint.gates.intGate = 2;
+    joint.gates.diffGate = 1;
+    joint.limits.lowerLimit = -10000;
+    joint.limits.upperLimit = 700;
+    joint.isReverce = false;
+    joint.isEnable = true;
+
+    desc->joints[joint.jointNumber] = joint;
+
+    joint.jointNumber = 4;
+    joint.channel = 4;
+    joint.jointName = "Бедро X (R)";
+    joint.offset = 4851;
+    joint.gates.propGate = 900;
+    joint.gates.intGate = 2;
+    joint.gates.diffGate = 1;
+    joint.limits.lowerLimit = -1000;
+    joint.limits.upperLimit = 7500;
+    joint.isReverce = true;
+    joint.isEnable = true;
+
+    desc->joints[joint.jointNumber] = joint;
+
+    joint.jointNumber = 5;
+    joint.channel = 5;
+    joint.jointName = "Бедро Y (R)";
+    joint.offset = 193;
+    joint.gates.propGate = 900;
+    joint.gates.intGate = 2;
+    joint.gates.diffGate = 1;
+    joint.limits.lowerLimit = -1400;
+    joint.limits.upperLimit = 1500;
+    joint.isReverce = true;
+    joint.isEnable = true;
+
+    desc->joints[joint.jointNumber] = joint;
+
+    joint.jointNumber = 6;
+    joint.channel = 6;
+    joint.jointName = "Бедро вращение (R)";
+    joint.offset = 8208;
+    joint.gates.propGate = 900;
+    joint.gates.intGate = 2;
+    joint.gates.diffGate = 1;
+    joint.limits.lowerLimit = -1000;
+    joint.limits.upperLimit = 1000;
+    joint.isReverce = true;
+    joint.isEnable = true;
+
+    desc->joints[joint.jointNumber] = joint;
+
+    joint.jointNumber = 7;
+    joint.channel = 7;
+    joint.jointName = "Стопа Y (L)";
+    joint.offset = 6389;
+    joint.gates.propGate = 900;
+    joint.gates.intGate = 2;
+    joint.gates.diffGate = 1;
+    joint.limits.lowerLimit = -1500;
+    joint.limits.upperLimit = 1500;
+    joint.isReverce = true;
+    joint.isEnable = true;
+
+    desc->joints[joint.jointNumber] = joint;
+
+    joint.jointNumber = 8;
+    joint.channel = 8;
+    joint.jointName = "Стопа X (L)";
+    joint.offset = -870;
+    joint.gates.propGate = 900;
+    joint.gates.intGate = 2;
+    joint.gates.diffGate = 1;
+    joint.limits.lowerLimit = -4000;
+    joint.limits.upperLimit = 8000;
+    joint.isReverce = true;
+    joint.isEnable = true;
+
+    desc->joints[joint.jointNumber] = joint;
+
+    joint.jointNumber = 9;
+    joint.channel = 9;
+    joint.jointName = "Колено (L)";
+    joint.offset = -4965;
+    joint.gates.propGate = 900;
+    joint.gates.intGate = 2;
+    joint.gates.diffGate = 1;
+    joint.limits.lowerLimit = -10000;
+    joint.limits.upperLimit = 700;
+    joint.isReverce = true;
+    joint.isEnable = true;
+
+    desc->joints[joint.jointNumber] = joint;
+
+    joint.jointNumber = 10;
+    joint.channel = 10;
+    joint.jointName = "Бедро X (L)";
+    joint.offset = -4429;
+    joint.gates.propGate = 900;
+    joint.gates.intGate = 2;
+    joint.gates.diffGate = 1;
+    joint.limits.lowerLimit = -1000;
+    joint.limits.upperLimit = 7500;
+    joint.isReverce = false;
+    joint.isEnable = true;
+
+    desc->joints[joint.jointNumber] = joint;
+
+    joint.jointNumber = 11;
+    joint.channel = 11;
+    joint.jointName = "Бедро Y (L)";
+    joint.offset = 4218;
+    joint.gates.propGate = 900;
+    joint.gates.intGate = 2;
+    joint.gates.diffGate = 1;
+    joint.limits.lowerLimit = -1400;
+    joint.limits.upperLimit = 1500;
+    joint.isReverce = false;
+    joint.isEnable = true;
+
+    desc->joints[joint.jointNumber] = joint;
+
+    joint.jointNumber = 12;
+    joint.channel = 12;
+    joint.jointName = "Бедро вращение (L)";
+    joint.offset = 7664;
+    joint.gates.propGate = 900;
+    joint.gates.intGate = 2;
+    joint.gates.diffGate = 1;
+    joint.limits.lowerLimit = -1000;
+    joint.limits.upperLimit = 1000;
+    joint.isReverce = false;
+    joint.isEnable = true;
+
+    desc->joints[joint.jointNumber] = joint;
+
+    JSONSerializer serializer;
+    serializer.setDesc(desc);
+    serializer.serialize(fileName);
 }

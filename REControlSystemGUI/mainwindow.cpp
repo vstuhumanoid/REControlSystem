@@ -17,5 +17,5 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButton_clicked()
 {
-    driver->saveDesc("joints.json");
+    driver->generateDesc("joints.json");
 }

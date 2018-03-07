@@ -3,14 +3,14 @@
 #include <string>
 
 /*
-* Настройки узла (мотора)
+* РќР°СЃС‚СЂРѕР№РєРё СѓР·Р»Р° (РјРѕС‚РѕСЂР°)
 */
 class JointSettings
 {
 public:
-    int number; // номер узла (мотора)
-	int channel; // канал (в роботе)
-	int offset; // смещение угла (градусы * 100)
+    int number; // РЅРѕРјРµСЂ СѓР·Р»Р° (РјРѕС‚РѕСЂР°)
+	int channel; // РєР°РЅР°Р» (РІ СЂРѕР±РѕС‚Рµ)
+	int offset; // СЃРјРµС‰РµРЅРёРµ СѓРіР»Р° (РіСЂР°РґСѓСЃС‹ * 100)
 
     struct JointLimits
     {
@@ -27,11 +27,11 @@ public:
         int DiffGate;
     };
 
-	PIDGates gates; // пиды
-	bool isEnable; // используется
-	bool isReverce; // реверс
+	PIDGates gates; // РїРёРґС‹
+	bool isEnable; // РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ
+	bool isReverce; // СЂРµРІРµСЂСЃ
 
-	std::string name; // название узла
+	std::string name; // РЅР°Р·РІР°РЅРёРµ СѓР·Р»Р°
 
 	JointSettings();
 	~JointSettings();

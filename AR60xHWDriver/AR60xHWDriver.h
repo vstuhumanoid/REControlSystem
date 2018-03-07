@@ -12,6 +12,7 @@ class AR60xHWDriver
 public:
     AR60xHWDriver();
     void saveDesc(std::string fileName);
+    void generateDesc(std::string fileName);
 };
 
 #endif // AR60XHWDRIVER_H
