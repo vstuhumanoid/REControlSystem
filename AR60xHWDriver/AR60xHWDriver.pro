@@ -8,11 +8,20 @@ QT       -= gui
 
 TARGET = AR60xHWDriver
 TEMPLATE = lib
-CONFIG += staticlib
+CONFIG += staticlib qt c++14 thread
 
-SOURCES += AR60xHWDriver.cpp
+SOURCES += AR60xHWDriver.cpp \
+    RobotDescription/AR60xDescription.cpp \
+    RobotDescription/JointInformation.cpp \
+    RobotDescription/SensorInformation.cpp \
+    RobotDescription/JSONSerializer.cpp
 
-HEADERS += AR60xHWDriver.h
+HEADERS += AR60xHWDriver.h \
+    RobotDescription/AR60xDescription.h \
+    RobotDescription/JointInformation.h \
+    RobotDescription/SensorInformation.h \
+    RobotDescription/JSONSerializer.h \
+    Libs/JSON/json.hpp
 unix {
     target.path = /usr/lib
     INSTALLS += target
