@@ -1,4 +1,7 @@
 #pragma once
+
+#include "PowerState.h"
+
 class JointState
 {
 public:
@@ -11,6 +14,9 @@ public:
 		RELAX, // мотор обесточен, мефта разблокированна
 		TRACE // мотор управляется углом
 	};
+
+    JOINT_STATES state;
+    PowerState::PowerSupplyState supplyState;
 
 	JointState();
 	~JointState();

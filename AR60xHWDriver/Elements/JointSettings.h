@@ -1,6 +1,5 @@
 #pragma once
 
-#include "PIDGates.h"
 #include <string>
 
 /*
@@ -9,11 +8,25 @@
 class JointSettings
 {
 public:
-	int Number; // номер узла (мотора)
+    int number; // номер узла (мотора)
 	int channel; // канал (в роботе)
 	int offset; // смещение угла (градусы * 100)
-	int minAngle; // минимальный угол
-	int maxAngle; // максимальный угол
+
+    struct JointLimits
+    {
+        int lowerLimit;
+        int upperLimit;
+    };
+
+    JointLimits limits;
+
+    struct PIDGates
+    {
+        int PropGate;
+        int IntGate;
+        int DiffGate;
+    };
+
 	PIDGates gates; // пиды
 	bool isEnable; // используется
 	bool isReverce; // реверс

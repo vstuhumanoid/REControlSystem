@@ -7,10 +7,11 @@ class PowerState
 {
 public:
 
-	struct PowerSupplyState {
+    struct PowerSupplyState
+    {
 		float Voltage;
 		float Current;
-	};
+    };
 
 	PowerSupplyState power12VState;
 	PowerSupplyState power6V1State;

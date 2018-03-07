@@ -5,6 +5,6 @@
 class IAR60xSensorState
 {
 public:
-	virtual void SensorGetState(int sensor, SensorState & state) = 0;
+    virtual SensorState SensorGetState(int sensor) = 0;
 };
 

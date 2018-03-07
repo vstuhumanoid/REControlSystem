@@ -1,7 +1,5 @@
 #include "SensorState.h"
 
-
-
 SensorState::SensorState()
 {
 }
