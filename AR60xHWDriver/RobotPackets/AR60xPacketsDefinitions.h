@@ -2,20 +2,12 @@
 #define AR60XPACKETDEFINITION_H
 
 #include <iostream>
+#include <map>
 
 typedef unsigned char BYTE;
 
-struct deviceData
-{
-    bool isReverce; //Реверс
-    short minAngle; //Мин. угол
-    short maxAngle; //Макс. угол
-    bool isEnable;  //Используется
-    short channel;  //Номер канала
-};
-
-const uint16_t bufferSize  = 1472;
-const uint16_t channelsNumber = 71;
+const uint16_t packetSize  = 1472;
+const uint16_t countChannels = 71;
 
 const uint16_t SENSOR_YAW = 2;
 const uint16_t SENSOR_PITCH = 4;
@@ -29,6 +21,34 @@ const uint16_t SENSOR_UCH3 = 14;
 const uint16_t SENSOR_TX = 8;
 const uint16_t SENSOR_TY = 10;
 const uint16_t SENSOR_FZ = 12;
+
+static std::map<int ,int> sensorsMap =
+{
+    {1, SENSOR_YAW},
+    {2, SENSOR_PITCH},
+    {3, SENSOR_ROLL},
+    {4, SENSOR_TX},
+    {5, SENSOR_TY},
+    {6, SENSOR_FZ},
+    {7, SENSOR_UCH0},
+    {8, SENSOR_UCH1},
+    {9, SENSOR_UCH2},
+    {10, SENSOR_UCH3},
+    {11, SENSOR_UCH0},
+    {12, SENSOR_UCH1},
+    {13, SENSOR_UCH2},
+    {14, SENSOR_UCH3}
+};
+
+enum Powers
+{
+    Power12V,
+    Power6V1,
+    Power6V2,
+    Power8V1,
+    Power8V2,
+    Power48V
+};
 
 const uint16_t DEVICE_CHANNEL =  0;
 
@@ -58,5 +78,21 @@ const uint16_t POWER_CURRENT_8_1 =   2 * 2 + 12 + POWER_ADDRESS;
 const uint16_t POWER_CURRENT_8_2 =   3 * 2 + 12 + POWER_ADDRESS;
 const uint16_t POWER_CURRENT_12 =    4 * 2 + 12 + POWER_ADDRESS;
 const uint16_t POWER_CURRENT_48 =    5 * 2 + 12 + POWER_ADDRESS;
+
+struct PowerStateAddress
+{
+    int PowerVoltageAddress;
+    int PowerCurrentAddress;
+};
+
+static std::map<int ,PowerStateAddress> powerStateMap =
+{
+    {Power12V, {POWER_VOLTAGE_12, POWER_CURRENT_12}},
+    {Power6V1, {POWER_VOLTAGE_6_1, POWER_CURRENT_6_1}},
+    {Power6V2, {POWER_VOLTAGE_6_2, POWER_CURRENT_6_2}},
+    {Power8V1, {POWER_VOLTAGE_8_1, POWER_CURRENT_8_1}},
+    {Power8V2, {POWER_VOLTAGE_8_2, POWER_CURRENT_8_2}},
+    {Power48V, {POWER_VOLTAGE_48, POWER_CURRENT_48}}
+};
 
 #endif // AR60XPACKETDEFINITION_H

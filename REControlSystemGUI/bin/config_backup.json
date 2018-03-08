@@ -1,0 +1,453 @@
+{
+    "connection": {
+        "host": "192.169.1.10",
+        "recvPort": 10001,
+        "sendDelay": 5,
+        "sendPort": 10001
+    },
+    "joints": [
+        {
+            "channel": 1,
+            "gates": {
+                "diffGate": 2,
+                "intGate": 1,
+                "propGate": 900
+            },
+            "isEnable": true,
+            "isReverce": false,
+            "limits": {
+                "lowerLimit": -1500,
+                "upperLimit": 1500
+            },
+            "name": "Стопа Y (R)",
+            "number": 1,
+            "offset": -114
+        },
+        {
+            "channel": 2,
+            "gates": {
+                "diffGate": 2,
+                "intGate": 1,
+                "propGate": 900
+            },
+            "isEnable": true,
+            "isReverce": false,
+            "limits": {
+                "lowerLimit": -4000,
+                "upperLimit": 8000
+            },
+            "name": "Стопа X (R)",
+            "number": 2,
+            "offset": -5361
+        },
+		{
+            "channel": 3,
+            "gates": {
+                "diffGate": 2,
+                "intGate": 1,
+                "propGate": 900
+            },
+            "isEnable": true,
+            "isReverce": false,
+            "limits": {
+                "lowerLimit": -10000,
+                "upperLimit": 700
+            },
+            "name": "Колено (R)",
+            "number": 3,
+            "offset": -7804
+        },
+		{
+            "channel": 4,
+            "gates": {
+                "diffGate": 2,
+                "intGate": 1,
+                "propGate": 900
+            },
+            "isEnable": true,
+            "isReverce": true,
+            "limits": {
+                "lowerLimit": -1000,
+                "upperLimit": 7500
+            },
+            "name": "Бедро X (R)",
+            "number": 4,
+            "offset": 4851
+        },
+		{
+            "channel": 5,
+            "gates": {
+                "diffGate": 2,
+                "intGate": 1,
+                "propGate": 900
+            },
+            "isEnable": true,
+            "isReverce": true,
+            "limits": {
+                "lowerLimit": -1400,
+                "upperLimit": 1500
+            },
+            "name": "Бедро Y (R)",
+            "number": 5,
+            "offset": 193
+        },
+		{
+            "channel": 6,
+            "gates": {
+                "diffGate": 2,
+                "intGate": 1,
+                "propGate": 900
+            },
+            "isEnable": true,
+            "isReverce": true,
+            "limits": {
+                "lowerLimit": -1000,
+                "upperLimit": 1000
+            },
+            "name": "Бедро вращение (R)",
+            "number": 6,
+            "offset": 8208
+        },
+		{
+            "channel": 7,
+            "gates": {
+                "diffGate": 2,
+                "intGate": 1,
+                "propGate": 900
+            },
+            "isEnable": true,
+            "isReverce": true,
+            "limits": {
+                "lowerLimit": -1500,
+                "upperLimit": 1500
+            },
+            "name": "Стопа Y (L)",
+            "number": 7,
+            "offset": 6389
+        },
+		{
+            "channel": 8,
+            "gates": {
+                "diffGate": 2,
+                "intGate": 1,
+                "propGate": 900
+            },
+            "isEnable": true,
+            "isReverce": true,
+            "limits": {
+                "lowerLimit": -4000,
+                "upperLimit": 8000
+            },
+            "name": "Стопа X (L)",
+            "number": 8,
+            "offset": -870
+        },
+		{
+            "channel": 9,
+            "gates": {
+                "diffGate": 2,
+                "intGate": 1,
+                "propGate": 900
+            },
+            "isEnable": true,
+            "isReverce": true,
+            "limits": {
+                "lowerLimit": -10000,
+                "upperLimit": 700
+            },
+            "name": "Колено (L)",
+            "number": 9,
+            "offset": -4965
+        },
+		{
+            "channel": 10,
+            "gates": {
+                "diffGate": 2,
+                "intGate": 1,
+                "propGate": 900
+            },
+            "isEnable": true,
+            "isReverce": false,
+            "limits": {
+                "lowerLimit": -1000,
+                "upperLimit": 7500
+            },
+            "name": "Бедро X (L)",
+            "number": 10,
+            "offset": -4429
+        },
+		{
+            "channel": 11,
+            "gates": {
+                "diffGate": 2,
+                "intGate": 1,
+                "propGate": 900
+            },
+            "isEnable": true,
+            "isReverce": false,
+            "limits": {
+                "lowerLimit": -1400,
+                "upperLimit": 1500
+            },
+            "name": "Бедро Y (L)",
+            "number": 11,
+            "offset": 4218
+        },
+		{
+            "channel": 12,
+            "gates": {
+                "diffGate": 2,
+                "intGate": 1,
+                "propGate": 900
+            },
+            "isEnable": true,
+            "isReverce": false,
+            "limits": {
+                "lowerLimit": -1000,
+                "upperLimit": 1000
+            },
+            "name": "Бедро вращение (L)",
+            "number": 12,
+            "offset": 7664
+        },
+		{
+            "channel": 26,
+            "gates": {
+                "diffGate": 2,
+                "intGate": 1,
+                "propGate": 600
+            },
+            "isEnable": false,
+            "isReverce": true,
+            "limits": {
+                "lowerLimit": -500,
+                "upperLimit": 9000
+            },
+            "name": "Рука Y (R)",
+            "number": 19,
+            "offset": 17376
+        },
+		{
+            "channel": 27,
+            "gates": {
+                "diffGate": 2,
+                "intGate": 1,
+                "propGate": 600
+            },
+            "isEnable": false,
+            "isReverce": true,
+            "limits": {
+                "lowerLimit": -500,
+                "upperLimit": 9500
+            },
+            "name": "Рука X (R)",
+            "number": 20,
+            "offset": 11443
+        },
+		{
+            "channel": 36,
+            "gates": {
+                "diffGate": 2,
+                "intGate": 1,
+                "propGate": 600
+            },
+            "isEnable": false,
+            "isReverce": false,
+            "limits": {
+                "lowerLimit": -500,
+                "upperLimit": 9000
+            },
+            "name": "Рука Y (L)",
+            "number": 35,
+            "offset": -14115
+        },
+		{
+            "channel": 37,
+            "gates": {
+                "diffGate": 2,
+                "intGate": 1,
+                "propGate": 600
+            },
+            "isEnable": false,
+            "isReverce": false,
+            "limits": {
+                "lowerLimit": -500,
+                "upperLimit": 9500
+            },
+            "name": "Рука X (L)",
+            "number": 36,
+            "offset": 4025
+        },
+		{
+            "channel": 18,
+            "gates": {
+                "diffGate": 2,
+                "intGate": 1,
+                "propGate": 1000
+            },
+            "isEnable": false,
+            "isReverce": false,
+            "limits": {
+                "lowerLimit": -3500,
+                "upperLimit": 3500
+            },
+            "name": "Голова вращение",
+            "number": 43,
+            "offset": 487
+        },
+		{
+            "channel": 20,
+            "gates": {
+                "diffGate": 2,
+                "intGate": 1,
+                "propGate": 400
+            },
+            "isEnable": false,
+            "isReverce": true,
+            "limits": {
+                "lowerLimit": -1500,
+                "upperLimit": 1500
+            },
+            "name": "Голова наклон",
+            "number": 44,
+            "offset": 9097
+        },
+		{
+            "channel": 21,
+            "gates": {
+                "diffGate": 2,
+                "intGate": 1,
+                "propGate": 400
+            },
+            "isEnable": false,
+            "isReverce": false,
+            "limits": {
+                "lowerLimit": -1000,
+                "upperLimit": 1000
+            },
+            "name": "Голова качание",
+            "number": 45,
+            "offset": 2988
+        },
+		{
+            "channel": 22,
+            "gates": {
+                "diffGate": 1,
+                "intGate": 1,
+                "propGate": 500
+            },
+            "isEnable": false,
+            "isReverce": false,
+            "limits": {
+                "lowerLimit": -500,
+                "upperLimit": 1500
+            },
+            "name": "Шея",
+            "number": 46,
+            "offset": 8437
+        },
+		{
+            "channel": 23,
+            "gates": {
+                "diffGate": 1,
+                "intGate": 1,
+                "propGate": 500
+            },
+            "isEnable": false,
+            "isReverce": false,
+            "limits": {
+                "lowerLimit": -1500,
+                "upperLimit": 1500
+            },
+            "name": "Торс",
+            "number": 49,
+            "offset": -15477
+        }
+    ],
+    "sensors": [
+        {
+            "channel": 14,
+            "group": 1,
+            "name": "Акселерометр X",
+            "number": 1
+        },
+		{
+            "channel": 14,
+            "group": 1,
+            "name": "Акселерометр Y",
+            "number": 2
+        },
+		{
+            "channel": 14,
+            "group": 1,
+            "name": "Акселерометр Z",
+            "number": 3
+        },
+		{
+            "channel": 14,
+            "group": 1,
+            "name": "Гироскоп X",
+            "number": 4
+        },
+		{
+            "channel": 14,
+            "group": 1,
+            "name": "Гироскоп Y",
+            "number": 5
+        },
+		{
+            "channel": 14,
+            "group": 1,
+            "name": "Гироскоп Z",
+            "number": 6
+        },
+		{
+            "channel": 15,
+            "group": 2,
+            "name": "Давление на левой ноге 0",
+            "number": 7
+        },
+		{
+            "channel": 15,
+            "group": 2,
+            "name": "Давление на левой ноге 1",
+            "number": 8
+        },
+		{
+            "channel": 15,
+            "group": 2,
+            "name": "Давление на левой ноге 2",
+            "number": 9
+        },
+		{
+            "channel": 15,
+            "group": 2,
+            "name": "Давление на левой ноге 3",
+            "number": 10
+        },
+		{
+            "channel": 16,
+            "group": 2,
+            "name": "Давление на правой ноге 0",
+            "number": 11
+        },
+		{
+            "channel": 16,
+            "group": 2,
+            "name": "Давление на правой ноге 1",
+            "number": 12
+        },
+		{
+            "channel": 16,
+            "group": 2,
+            "name": "Давление на правой ноге 2",
+            "number": 13
+        },
+		{
+            "channel": 16,
+            "group": 2,
+            "name": "Давление на правой ноге 3",
+            "number": 14
+        },
+    ]
+}

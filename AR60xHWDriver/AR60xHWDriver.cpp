@@ -1,12 +1,298 @@
 #include "AR60xHWDriver.h"
 
+bool AR60xHWDriver::serialize(std::string fileName)
+{
+    QJsonObject root;
+
+    QJsonObject connectionInfo;
+    connectionInfo["host"] = QString::fromStdString( connectionData.host );
+    connectionInfo["recvPort"] = connectionData.recvPort;
+    connectionInfo["sendPort"] = connectionData.sendPort;
+    connectionInfo["sendDelay"] = connectionData.sendDelay;
+    root["connection"] = connectionInfo;
+
+    QJsonArray joints;
+
+    for(auto it = desc->joints.begin(); it != desc->joints.end(); ++it)
+    {
+        QJsonObject jointInformation;
+        jointInformation["number"] = (*it).second.jointNumber;
+        jointInformation["name"] = QString::fromStdString( (*it).second.jointName );
+        jointInformation["channel"] = (*it).second.channel;
+
+        QJsonObject jointGates;
+        jointGates["propGate"] = (*it).second.gates.propGate;
+        jointGates["intGate"] = (*it).second.gates.intGate;
+        jointGates["diffGate"] = (*it).second.gates.diffGate;
+        jointInformation["gates"] = jointGates;
+
+        QJsonObject jointLimits;
+        jointLimits["lowerLimit"] = (*it).second.limits.lowerLimit;
+        jointLimits["upperLimit"] = (*it).second.limits.upperLimit;
+        jointInformation["limits"] = jointLimits;
+
+        jointInformation["offset"] = (*it).second.offset;
+        jointInformation["isReverce"] = (*it).second.isReverce;
+        jointInformation["isEnable"] = (*it).second.isEnable;
+
+        joints.append(jointInformation);
+    }
+
+    root["joints"] = joints;
+
+    QJsonArray sensors;
+
+    for(auto it = desc->sensors.begin(); it != desc->sensors.end(); ++it)
+    {
+        QJsonObject sensorInformation;
+        sensorInformation["number"] = (*it).second.sensorNumber;
+        sensorInformation["name"] = QString::fromStdString( (*it).second.sensorName );
+        sensorInformation["channel"] = (*it).second.channel;
+        sensorInformation["group"] = (*it).second.group;
+
+        sensors.append(sensorInformation);
+    }
+
+    root["sensors"] = sensors;
+
+    QFile file;
+    file.setFileName(QString::fromStdString( fileName ));
+    file.open(QIODevice::WriteOnly | QIODevice::Text);
+    file.write(QJsonDocument(root).toJson(QJsonDocument::Indented));
+    file.close();
+
+    return true;
+}
+
+bool AR60xHWDriver::deserialize(std::string fileName)
+{
+    QFile file;
+    file.setFileName(QString::fromStdString( fileName ));
+    file.open(QIODevice::ReadOnly | QIODevice::Text);
+    QByteArray jsonData = file.readAll();
+    file.close();
+
+    QJsonDocument document;
+
+    document = QJsonDocument::fromJson(jsonData);
+    if (!document.isObject())
+    {
+        qDebug() << "Document is not an object";
+        return false;
+    }
+
+    QJsonObject root = document.object();
+
+    QJsonObject connectionInfo = root["connection"].toObject();
+    connectionData.host = connectionInfo["host"].toString().toStdString();
+    connectionData.recvPort = connectionInfo["recvPort"].toInt();
+    connectionData.sendPort = connectionInfo["sendPort"].toInt();
+    connectionData.sendDelay = connectionInfo["sendDelay"].toInt();
+
+    QJsonArray joints = root["joints"].toArray();
+    std::map <int, JointInformation> jointsMap;
+
+    for(auto jointInformationRef : joints)
+    {
+        QJsonObject jointInformation = jointInformationRef.toObject();
+
+        JointInformation joint;
+        joint.jointNumber = jointInformation["number"].toInt();
+        joint.jointName = jointInformation["name"].toString().toStdString();
+        joint.channel = jointInformation["channel"].toInt();
+
+        QJsonObject jointGates = jointInformation["gates"].toObject();
+
+        joint.gates.propGate = jointGates["propGate"].toInt();
+        joint.gates.intGate = jointGates["intGate"].toInt();
+        joint.gates.diffGate = jointGates["diffGate"].toInt();
+
+        QJsonObject jointLimits = jointInformation["limits"].toObject();
+        joint.limits.lowerLimit = jointLimits["lowerLimit"].toInt();
+        joint.limits.upperLimit = jointLimits["upperLimit"].toInt();
+
+        joint.offset = jointInformation["offset"].toInt();
+        joint.isReverce = jointInformation["isReverce"].toBool();
+        joint.isEnable = jointInformation["isEnable"].toBool();
+
+        jointsMap[joint.jointNumber] = joint;
+    }
+
+    QJsonArray sensors = root["sensors"].toArray();
+    std::map <int, SensorInformation> sensorsMap;
+
+    for(auto sensorInformationRef : sensors)
+    {
+        QJsonObject sensorInformation = sensorInformationRef.toObject();
+        SensorInformation sensor;
+        sensor.sensorNumber = sensorInformation["number"].toInt();
+        sensor.sensorName = sensorInformation["name"].toString().toStdString();
+        sensor.channel = sensorInformation["channel"].toInt();
+        sensor.group = SensorInformation::SensorGroups( sensorInformation["group"].toInt() );
+
+        sensorsMap[sensor.sensorNumber] = sensor;
+    }
+
+    desc->joints = jointsMap;
+    desc->sensors = sensorsMap;
+
+    return true;
+}
 
 AR60xHWDriver::AR60xHWDriver()
 {
     desc = new AR60xDescription();
 }
 
-void AR60xHWDriver::saveDesc(std::__cxx11::string fileName)
+bool AR60xHWDriver::loadConfig(std::string fileName)
+{
+    return deserialize(fileName);
+}
+
+void AR60xHWDriver::initPackets()
+{
+    sendpacket = new AR60xSendPacket(desc);
+    recvPacket = new AR60xRecvPacket(desc);
+
+    connection = new UDPConnection();
+
+    connection->setRecvPacket(recvPacket);
+    connection->setSendPacket(sendpacket);
+
+    connection->initPackets();
+
+    connection->setHost(connectionData.host);
+    connection->setRecvPort(connectionData.recvPort);
+    connection->setSendPort(connectionData.sendPort);
+    connection->setSendDelay(connectionData.sendDelay);
+}
+
+void AR60xHWDriver::robotConnect()
+{
+    connection->connectToHost();
+}
+
+void AR60xHWDriver::robotDisconnect()
+{
+    connection->breakConnection();
+}
+
+void AR60xHWDriver::JointsSetPositions(int joints[], int positions[])
+{
+
+}
+
+void AR60xHWDriver::JointSetSettings(int joint, JointSettings settings)
+{
+
+}
+
+void AR60xHWDriver::JointSetPosition(int joint, int position)
+{
+
+}
+
+void AR60xHWDriver::JointSetOffset(int joint, int offset)
+{
+
+}
+
+void AR60xHWDriver::JointSetReverce(int joint, bool isReverce)
+{
+
+}
+
+void AR60xHWDriver::JointSetGates(int joint, JointSettings::PIDGates gates)
+{
+
+}
+
+void AR60xHWDriver::JointSetLimits(int joint, JointSettings::JointLimits limits)
+{
+
+}
+
+void AR60xHWDriver::JointSetEnable(int joint, bool isEnable)
+{
+
+}
+
+void AR60xHWDriver::JointSetState(int joint, JointState state)
+{
+
+}
+
+void AR60xHWDriver::JointsGetPositions(int joints[], int positions[])
+{
+
+}
+
+void AR60xHWDriver::JointGetSettings(int joint, JointSettings &settings)
+{
+
+}
+
+int AR60xHWDriver::JointGetPosition(int joint)
+{
+
+}
+
+JointState AR60xHWDriver::JointGetState(int joint)
+{
+
+}
+
+bool AR60xHWDriver::JointGetReverce(int joint)
+{
+
+}
+
+PowerState::PowerSupplyState AR60xHWDriver::JointGetSupplyState(int joint)
+{
+
+}
+
+JointSettings::JointLimits AR60xHWDriver::JointGetLimits(int joint)
+{
+
+}
+
+void AR60xHWDriver::JointGetEnable(int joint)
+{
+
+}
+
+JointSettings::PIDGates AR60xHWDriver::JointGetGates(int joint)
+{
+
+}
+
+void AR60xHWDriver::PowerSetSettings(PowerSettings settings)
+{
+
+}
+
+void AR60xHWDriver::PowerSetState(PowerSettings::Powers power, bool onOffState)
+{
+
+}
+
+bool AR60xHWDriver::PowerGetOnOff(PowerSettings::Powers power)
+{
+
+}
+
+PowerState::PowerSupplyState AR60xHWDriver::PowerGetSupplyState(PowerSettings::Powers power)
+{
+
+}
+
+SensorState AR60xHWDriver::SensorGetState(int sensor)
+{
+
+}
+
+bool AR60xHWDriver::saveConfig(std::string fileName)
 {
     JointInformation joint;
     joint.channel = 2;
@@ -69,13 +355,10 @@ void AR60xHWDriver::saveDesc(std::__cxx11::string fileName)
     desc->sensors[1] = sensor1;
     desc->sensors[2] = sensor2;
 
-    JSONSerializer serializer;
-    serializer.setDesc(desc);
-    serializer.serialize(fileName);
-    serializer.deserialize(fileName);
+    return serialize(fileName);
 }
 
-void AR60xHWDriver::generateDesc(std::string fileName)
+bool AR60xHWDriver::generateConfig(std::string fileName)
 {
     JointInformation joint;
 
@@ -247,7 +530,5 @@ void AR60xHWDriver::generateDesc(std::string fileName)
 
     desc->joints[joint.jointNumber] = joint;
 
-    JSONSerializer serializer;
-    serializer.setDesc(desc);
-    serializer.serialize(fileName);
+    return serialize(fileName);
 }

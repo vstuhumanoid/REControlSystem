@@ -4,10 +4,6 @@
 #include "../Elements/JointState.h"
 #include "../Elements/PowerState.h"
 
-using SupplyState = PowerState::PowerSupplyState;
-using JointLimits = JointSettings::JointLimits;
-using PIDGates = JointSettings::PIDGates;
-
 class IAR60xJointState
 {
 public:
@@ -17,9 +13,9 @@ public:
     virtual int JointGetPosition(int joint) = 0;
 	virtual JointState JointGetState(int joint) = 0;
     virtual bool JointGetReverce(int joint) = 0;
-    virtual SupplyState JointGetSupplyState(int joint) = 0;
-    virtual JointLimits JointGetLimits(int joint) = 0;
+    virtual PowerState::PowerSupplyState JointGetSupplyState(int joint) = 0;
+    virtual JointSettings::JointLimits JointGetLimits(int joint) = 0;
     virtual void JointGetEnable(int joint) = 0;
-    virtual PIDGates JointGetGates(int joint) = 0;
+    virtual JointSettings::PIDGates JointGetGates(int joint) = 0;
 };
 
