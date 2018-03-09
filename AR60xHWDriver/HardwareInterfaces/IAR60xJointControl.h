@@ -16,6 +16,6 @@ public:
     virtual void JointSetGates(int joint, JointSettings::PIDGates gates) = 0;
     virtual void JointSetLimits(int joint, JointSettings::JointLimits limits) = 0;
     virtual void JointSetEnable(int joint, bool isEnable) = 0;
-    virtual void JointSetState(int joint, JointState state) = 0;
+    virtual void JointSetState(int joint, JointState::JOINT_STATES state) = 0;
 };
 

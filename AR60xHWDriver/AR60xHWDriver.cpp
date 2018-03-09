@@ -175,6 +175,7 @@ void AR60xHWDriver::robotConnect()
 void AR60xHWDriver::robotDisconnect()
 {
     connection->breakConnection();
+    connection->wait();
 }
 
 void AR60xHWDriver::JointsSetPositions(int joints[], int positions[])
@@ -189,7 +190,7 @@ void AR60xHWDriver::JointSetSettings(int joint, JointSettings settings)
 
 void AR60xHWDriver::JointSetPosition(int joint, int position)
 {
-
+    sendpacket->jointSetPosition(joint, position);
 }
 
 void AR60xHWDriver::JointSetOffset(int joint, int offset)
@@ -217,9 +218,9 @@ void AR60xHWDriver::JointSetEnable(int joint, bool isEnable)
 
 }
 
-void AR60xHWDriver::JointSetState(int joint, JointState state)
+void AR60xHWDriver::JointSetState(int joint, JointState::JOINT_STATES state)
 {
-
+    sendpacket->jointSetState(joint, state);
 }
 
 void AR60xHWDriver::JointsGetPositions(int joints[], int positions[])
@@ -274,12 +275,16 @@ void AR60xHWDriver::PowerSetSettings(PowerSettings settings)
 
 void AR60xHWDriver::PowerSetState(PowerSettings::Powers power, bool onOffState)
 {
-
+    //TODO: заменить на PowerSetting::Powers в пакете
+    if(onOffState)
+        sendpacket->PowerSetOn((Powers)power);
+    else
+        sendpacket->PowerSetOff((Powers)power);
 }
 
 bool AR60xHWDriver::PowerGetOnOff(PowerSettings::Powers power)
 {
-
+    //TODO: нет метода в recvpacket
 }
 
 PowerState::PowerSupplyState AR60xHWDriver::PowerGetSupplyState(PowerSettings::Powers power)
@@ -290,6 +295,11 @@ PowerState::PowerSupplyState AR60xHWDriver::PowerGetSupplyState(PowerSettings::P
 SensorState AR60xHWDriver::SensorGetState(int sensor)
 {
 
+}
+
+AR60xDescription *AR60xHWDriver::getRobotDesc()
+{
+    return desc;
 }
 
 bool AR60xHWDriver::saveConfig(std::string fileName)

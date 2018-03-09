@@ -69,7 +69,7 @@ public:
     void JointSetGates(int joint, JointSettings::PIDGates gates)override;
     void JointSetLimits(int joint, JointSettings::JointLimits limits)override;
     void JointSetEnable(int joint, bool isEnable)override;
-    void JointSetState(int joint, JointState state)override;
+    void JointSetState(int joint, JointState::JOINT_STATES state)override;
 
     void JointsGetPositions(int joints[], int positions[])override;
     void JointGetSettings(int joint, JointSettings & settings)override;
@@ -89,6 +89,8 @@ public:
     PowerState::PowerSupplyState PowerGetSupplyState(PowerSettings::Powers power)override;
 
     SensorState SensorGetState(int sensor)override;
+
+    AR60xDescription *getRobotDesc();
 
 };
 
