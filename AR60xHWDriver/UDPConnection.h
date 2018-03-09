@@ -22,17 +22,13 @@ public:
     ~UDPConnection(){}
 
     void run();
-    void connectToHost();
+    void connectToHost(std::string host, int sendPort, int recvPort, int delay);
     void breakConnection();
     void initPackets();
 
     void setRecvPacket(AR60xRecvPacket * packet) { recvPacket = packet; }
     void setSendPacket(AR60xSendPacket * packet) { sendPacket = packet; }
 
-    void setHost(std::string host);
-    void setRecvPort(int port);
-    void setSendPort(int port);
-    void setSendDelay(int delay);
 signals:
     void dataReady();
 private:

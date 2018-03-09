@@ -160,16 +160,14 @@ void AR60xHWDriver::initPackets()
     connection->setSendPacket(sendpacket);
 
     connection->initPackets();
-
-    connection->setHost(connectionData.host);
-    connection->setRecvPort(connectionData.recvPort);
-    connection->setSendPort(connectionData.sendPort);
-    connection->setSendDelay(connectionData.sendDelay);
 }
 
 void AR60xHWDriver::robotConnect()
 {
-    connection->connectToHost();
+    connection->connectToHost(connectionData.host,
+                              connectionData.sendPort,
+                              connectionData.recvPort,
+                              connectionData.sendDelay);
 }
 
 void AR60xHWDriver::robotDisconnect()

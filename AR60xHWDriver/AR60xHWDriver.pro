@@ -10,7 +10,7 @@ QT += core
 
 TARGET = AR60xHWDriver
 TEMPLATE = lib
-CONFIG += staticlib qt c++14 thread
+CONFIG += staticlib qt c++11 thread
 
 SOURCES += AR60xHWDriver.cpp \
     RobotDescription/AR60xDescription.cpp \

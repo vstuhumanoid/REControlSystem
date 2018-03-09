@@ -35,8 +35,13 @@ void UDPConnection::run()
 
 }
 
-void UDPConnection::connectToHost()
+void UDPConnection::connectToHost(std::string host, int sendPort, int recvPort, int delay)
 {
+    this->host = QString::fromStdString( host );
+    this->sendPort = sendPort;
+    this->recvPort = recvPort;
+    this->sendDelay = delay;
+
     if(isRunning == false)
     {
         isRunning = true;
@@ -59,26 +64,6 @@ void UDPConnection::initPackets()
     sendLocker = sendPacket->getMutex();
     sendPacket->init();
     recvPacket->initFromByteArray(sendPacket->getByteArray());
-}
-
-void UDPConnection::setHost(std::__cxx11::string host)
-{
-    this->host = QString::fromStdString(host);
-}
-
-void UDPConnection::setRecvPort(int port)
-{
-    this->recvPort = port;
-}
-
-void UDPConnection::setSendPort(int port)
-{
-    this->sendPort = port;
-}
-
-void UDPConnection::setSendDelay(int delay)
-{
-    this->sendDelay = delay;
 }
 
 void UDPConnection::printConnectionState()
