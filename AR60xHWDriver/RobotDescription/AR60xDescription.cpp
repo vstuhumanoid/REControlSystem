@@ -5,12 +5,12 @@ AR60xDescription::AR60xDescription()
 
 }
 
-std::map<int, SensorInformation> *AR60xDescription::getSensors()
+std::map<int, SensorData> *AR60xDescription::getSensors()
 {
     return &sensors;
 }
 
-std::map<int, JointInformation> *AR60xDescription::getJoints()
+std::map<int, JointData> *AR60xDescription::getJoints()
 {
     return &joints;
 }

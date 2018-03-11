@@ -1,14 +1,16 @@
-#ifndef SENSORINFORMATION_H
-#define SENSORINFORMATION_H
+#ifndef SENSORDATA_H
+#define SENSORDATA_H
 
 #include <string>
 
-class SensorInformation
+class SensorData
 {
 public:
-    int sensorNumber;       // Номер датчика
+    SensorData();
+
+    int number;       // Номер датчика
     int channel;            // Канал в пакете управления
-    std::string sensorName; // Имя датчика
+    std::string name; // Имя датчика
 
     enum SensorGroups       // Группы датчиков
     {
@@ -17,8 +19,6 @@ public:
     };
 
     SensorGroups group;     // Группа датчика
-
-    SensorInformation();
 };
 
-#endif // SENSORINFORMATION_H
+#endif // SENSORDATA_H

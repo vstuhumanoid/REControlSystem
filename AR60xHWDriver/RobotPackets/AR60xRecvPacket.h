@@ -27,8 +27,8 @@ public:
     short jointGetLowerLimit( short number );
     short jointGetUpperLimit( short number );
 
-    float powerGetVoltage(PowerSettings::Powers power);
-    float powerGetCurrent(PowerSettings::Powers power);
+    float supplyGetVoltage(PowerData::PowerSupplies supply);
+    float supplyGetCurrent(PowerData::PowerSupplies supply);
 
     const char *getByteArray();
     std::mutex *getMutex();

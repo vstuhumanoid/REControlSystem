@@ -1,4 +1,5 @@
-#pragma once
+#ifndef POWERSTATE_H
+#define POWERSTATE_H
 
 /*
 * Состояние источников питания робота (напряжение и ток)
@@ -24,3 +25,4 @@ public:
 	~PowerState();
 };
 
+#endif // POWERSTATE_H

@@ -18,16 +18,16 @@ void AR60xSendPacket::init()
     for(int i = 0; i < packetSize; i++)  byteArray[i] = 0;
     for(auto it = desc->joints.begin(); it != desc->joints.end();++it)
     {
-        JointInformation joint = (*it).second;
-        writeInt16(joint.channel * 16, joint.jointNumber);
-        jointSetPGain(joint.jointNumber, joint.gains.proportional);
-        jointSetIGain(joint.jointNumber, joint.gains.integral);
-        jointSetDGain(joint.jointNumber, joint.gains.derivative);
-        jointSetOffset(joint.jointNumber, joint.offset);
+        JointData joint = (*it).second;
+        writeInt16(joint.channel * 16, joint.number);
+        jointSetPGain(joint.number, joint.gains.proportional);
+        jointSetIGain(joint.number, joint.gains.integral);
+        jointSetDGain(joint.number, joint.gains.derivative);
+        jointSetOffset(joint.number, joint.offset);
 
-        jointSetLowerLimit(joint.jointNumber, joint.limits.lowerLimit);
-        jointSetUpperLimit(joint.jointNumber, joint.limits.upperLimit);
-        jointSetState(joint.jointNumber, JointState::STOP);
+        jointSetLowerLimit(joint.number, joint.limits.lowerLimit);
+        jointSetUpperLimit(joint.number, joint.limits.upperLimit);
+        jointSetState(joint.number, JointState::STOP);
     }
 }
 
@@ -160,35 +160,35 @@ void AR60xSendPacket::jointSetState(short number, JointState::JointStates state)
 }
 
 // TODO: Убрать switch
-void AR60xSendPacket::PowerSetOff(PowerSettings::Powers power)
+void AR60xSendPacket::supplySetOff(PowerData::PowerSupplies supply)
 {
-    switch (power) {
-    case PowerSettings::Power12V:
+    switch (supply) {
+    case PowerData::Supply12V:
     {
         byteArray[PowerDataAddress + 1] &= (255-16);
     }
         break;
-    case PowerSettings::Power6V1:
+    case PowerData::Supply6V1:
     {
         byteArray[PowerDataAddress + 1] &= (255-1);
     }
         break;
-    case PowerSettings::Power6V2:
+    case PowerData::Supply6V2:
     {
         byteArray[PowerDataAddress + 1] &= (255-2);
     }
         break;
-    case PowerSettings::Power8V1:
+    case PowerData::Supply8V1:
     {
         byteArray[PowerDataAddress + 1] &= (255-4);
     }
         break;
-    case PowerSettings::Power8V2:
+    case PowerData::Supply8V2:
     {
         byteArray[PowerDataAddress + 1] &= (255-8);
     }
         break;
-    case PowerSettings::Power48V:
+    case PowerData::Supply48V:
     {
         byteArray[PowerDataAddress + 1] &= (255-32);
     }
@@ -200,35 +200,35 @@ void AR60xSendPacket::PowerSetOff(PowerSettings::Powers power)
 
 
 // TODO: Убрать switch
-void AR60xSendPacket::PowerSetOn(PowerSettings::Powers power)
+void AR60xSendPacket::supplySetOn(PowerData::PowerSupplies supply)
 {
-    switch (power) {
-    case PowerSettings::Power12V:
+    switch (supply) {
+    case PowerData::Supply12V:
     {
         byteArray[PowerDataAddress + 1] |= 16;
     }
         break;
-    case PowerSettings::Power6V1:
+    case PowerData::Supply6V1:
     {
         byteArray[PowerDataAddress + 1] |= 1;
     }
         break;
-    case PowerSettings::Power6V2:
+    case PowerData::Supply6V2:
     {
         byteArray[PowerDataAddress + 1] |= 2;
     }
         break;
-    case PowerSettings::Power8V1:
+    case PowerData::Supply8V1:
     {
         byteArray[PowerDataAddress + 1] |= 4;
     }
         break;
-    case PowerSettings::Power8V2:
+    case PowerData::Supply8V2:
     {
         byteArray[PowerDataAddress + 1] |= 8;
     }
         break;
-    case PowerSettings::Power48V:
+    case PowerData::Supply48V:
     {
         byteArray[PowerDataAddress + 1] |= 32;
     }

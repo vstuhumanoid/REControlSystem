@@ -1,11 +1,11 @@
 #pragma once
 
-#include "../Elements/PowerSettings.h"
+#include "../DataTypes/PowerData.h"
 
 class IAR60xPowerControl
 {
 public:
-	virtual void PowerSetSettings(PowerSettings settings) = 0;
-    virtual void PowerSetState(PowerSettings::Powers power, bool onOffState) = 0;
+    virtual void PowerSetSettings(PowerData settings) = 0;
+    virtual void SupplySetState(PowerData::PowerSupplies supply, bool onOffState) = 0;
 };
 

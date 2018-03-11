@@ -1,4 +1,5 @@
-#pragma once
+#ifndef SENSORSTATE_H
+#define SENSORSTATE_H
 
 #include <string>
 
@@ -16,3 +17,4 @@ public:
 	~SensorState();
 };
 
+#endif // SENSORSTATE_H

@@ -52,7 +52,6 @@ private:
 public:
     AR60xHWDriver();
     bool saveConfig(std::string fileName);
-    bool generateConfig(std::string fileName);
     bool loadConfig(std::string fileName);
     void initPackets();
 
@@ -60,35 +59,33 @@ public:
     void robotConnect();
     void robotDisconnect();
 
-    void JointsSetPositions(int joints[], int positions[]) override;
-    void JointSetSettings(int joint, JointSettings settings)override;
+    void JointSetSettings(int joint, JointData settings) override;
 
-    void JointSetPosition(int joint, int position)override;
-    void JointSetOffset(int joint, int offset)override;
-    void JointSetReverce(int joint, bool isReverce)override;
-    void JointSetPIDGains(int joint, JointSettings::PIDGains gains)override;
-    void JointSetLimits(int joint, JointSettings::JointLimits limits)override;
-    void JointSetEnable(int joint, bool isEnable)override;
-    void JointSetState(int joint, JointState::JointStates state)override;
+    void JointSetPosition(int joint, int position) override;
+    void JointSetOffset(int joint, int offset) override;
+    void JointSetReverce(int joint, bool isReverce) override;
+    void JointSetPIDGains(int joint, JointData::PIDGains gains) override;
+    void JointSetLimits(int joint, JointData::JointLimits limits) override;
+    void JointSetEnable(int joint, bool isEnable) override;
+    void JointSetState(int joint, JointState::JointStates state) override;
 
-    void JointsGetPositions(int joints[], int positions[])override;
-    void JointGetSettings(int joint, JointSettings & settings)override;
+    JointData JointGetSettings(int joint) override;
 
-    int JointGetPosition(int joint)override;
-    JointState JointGetState(int joint)override;
-    bool JointGetReverce(int joint)override;
-    PowerState::PowerSupplyState JointGetSupplyState(int joint)override;
-    JointSettings::JointLimits JointGetLimits(int joint)override;
-    bool JointGetEnable(int joint)override;
-    JointSettings::PIDGains JointGetPIDGains(int joint)override;
+    int JointGetPosition(int joint) override;
+    JointState JointGetState(int joint) override;
+    bool JointGetReverce(int joint) override;
+    PowerState::PowerSupplyState JointGetSupplyState(int joint) override;
+    JointData::JointLimits JointGetLimits(int joint) override;
+    bool JointGetEnable(int joint) override;
+    JointData::PIDGains JointGetPIDGains(int joint) override;
 
-    void PowerSetSettings(PowerSettings settings)override;
-    void PowerSetState(PowerSettings::Powers power, bool onOffState)override;
+    void PowerSetSettings(PowerData settings) override;
+    void SupplySetState(PowerData::PowerSupplies supply, bool onOffState) override;
 
-    bool PowerGetOnOff(PowerSettings::Powers power)override;
-    PowerState::PowerSupplyState PowerGetSupplyState(PowerSettings::Powers power)override;
+    bool PowerGetOnOff(PowerData::PowerSupplies supply) override;
+    PowerState::PowerSupplyState PowerGetSupplyState(PowerData::PowerSupplies supply) override;
 
-    SensorState SensorGetState(int sensor)override;
+    SensorState SensorGetState(int sensor) override;
 
     AR60xDescription *getRobotDesc();
 

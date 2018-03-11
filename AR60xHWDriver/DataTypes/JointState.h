@@ -1,4 +1,5 @@
-#pragma once
+#ifndef JOINTSTATE_H
+#define JOINTSTATE_H
 
 #include "PowerState.h"
 
@@ -22,3 +23,4 @@ public:
 	~JointState();
 };
 
+#endif // JOINTSTATE_H

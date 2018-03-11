@@ -115,22 +115,22 @@ short AR60xRecvPacket::jointGetUpperLimit(short number)
     return value;
 }
 
-float AR60xRecvPacket::powerGetVoltage(PowerSettings::Powers power)
+float AR60xRecvPacket::supplyGetVoltage(PowerData::PowerSupplies supply)
 {
    locker.lock();
-   int address = powerStateMap.at(power).PowerVoltageAddress;
+   int address = powerStateMap.at(supply).SupplyVoltageAddress;
    float value = readFloat(address) / 1000;
-   if(address == Power48VoltageAddress) value *= 10;
+   if(address == Supply48VoltageAddress) value *= 10;
    locker.unlock();
    return value;
 }
 
-float AR60xRecvPacket::powerGetCurrent(PowerSettings::Powers power)
+float AR60xRecvPacket::supplyGetCurrent(PowerData::PowerSupplies supply)
 {
     locker.lock();
-    int address = powerStateMap.at(power).PowerCurrentAddress;
+    int address = powerStateMap.at(supply).SupplyCurrentAddress;
     float value = readFloat(address) / 1000;
-    if(address == Power48CurrentAddress) value *= 10;
+    if(address == Supply48CurrentAddress) value *= 10;
     locker.unlock();
     return value;
 }

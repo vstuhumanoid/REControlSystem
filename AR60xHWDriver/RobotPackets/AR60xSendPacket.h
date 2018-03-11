@@ -2,7 +2,7 @@
 #define AR60XSENDPACKET_H
 
 #include "AR60xPacketsDefinitions.h"
-#include "../Elements/JointState.h"
+#include "../DataTypes/JointState.h"
 #include "../RobotDescription/AR60xDescription.h"
 
 #include <iostream>
@@ -30,8 +30,8 @@ public:
     void jointSetUpperLimit( short number, short value );
     void jointSetState( short number , JointState::JointStates state );
 
-    void PowerSetOn( PowerSettings::Powers power );
-    void PowerSetOff( PowerSettings::Powers power );
+    void supplySetOn( PowerData::PowerSupplies supply );
+    void supplySetOff( PowerData::PowerSupplies supply );
 
 private:
     AR60xDescription * desc;

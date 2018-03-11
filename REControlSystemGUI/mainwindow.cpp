@@ -23,12 +23,13 @@ MainWindow::MainWindow(QWidget *parent) :
     qDebug() << "init packets succes" << endl;
 
     driver->robotConnect();
-    driver->PowerSetState(PowerSettings::Power12V, true);
+    driver->SupplySetState(PowerData::Supply12V, true);
 
     int lowerLimit = driver->getRobotDesc()->getJoints()->at(1).limits.lowerLimit;
+    int upperLimit = driver->getRobotDesc()->getJoints()->at(1).limits.upperLimit;
 
-    ui->horizontalSlider->setMinimum(driver->getRobotDesc()->getJoints()->at(1).limits.lowerLimit);
-    ui->horizontalSlider->setMaximum(driver->getRobotDesc()->getJoints()->at(1).limits.upperLimit);
+    ui->horizontalSlider->setMinimum(lowerLimit);
+    ui->horizontalSlider->setMaximum(upperLimit);
     ui->horizontalSlider->setValue(0);
 
     qDebug() << "joint 1 prepaired for trace" << endl;
@@ -50,11 +51,11 @@ void MainWindow::on_pushButton_clicked()
 
 void MainWindow::on_ButtonOn_clicked()
 {
-   driver->PowerSetState(PowerSettings::Power6V1, true);
-   driver->PowerSetState(PowerSettings::Power6V2, true);
-   driver->PowerSetState(PowerSettings::Power8V1, true);
-   driver->PowerSetState(PowerSettings::Power8V2, true);
-   driver->PowerSetState(PowerSettings::Power48V, true);
+   driver->SupplySetState(PowerData::Supply6V1, true);
+   driver->SupplySetState(PowerData::Supply6V2, true);
+   driver->SupplySetState(PowerData::Supply8V1, true);
+   driver->SupplySetState(PowerData::Supply8V2, true);
+   driver->SupplySetState(PowerData::Supply48V, true);
 }
 
 void MainWindow::on_horizontalSlider_sliderMoved(int position)

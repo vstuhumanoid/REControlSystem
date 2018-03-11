@@ -3,18 +3,19 @@
 
 #include <map>
 
-#include "SensorInformation.h"
-#include "JointInformation.h"
+#include "../DataTypes/JointData.h"
+#include "../DataTypes/SensorData.h"
 
 
 class AR60xDescription
 {
 public:
-    std::map<int, SensorInformation> sensors;
-    std::map<int, JointInformation> joints;
+    std::map<int, SensorData> sensors;
+    std::map<int, JointData> joints;
+
     AR60xDescription();
-    std::map<int, SensorInformation> *getSensors();
-    std::map<int, JointInformation> *getJoints();
+    std::map<int, SensorData> *getSensors();
+    std::map<int, JointData> *getJoints();
 };
 
 #endif // AR60XDESCRIPTION_H

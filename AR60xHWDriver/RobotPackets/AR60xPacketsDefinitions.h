@@ -1,7 +1,7 @@
 #ifndef AR60XPACKETDEFINITION_H
 #define AR60XPACKETDEFINITION_H
 
-#include "../Elements/PowerSettings.h"
+#include "../DataTypes/PowerData.h"
 
 #include <iostream>
 #include <map>
@@ -57,34 +57,34 @@ const uint16_t JointUpperLimitAddress = 14;
 
 const uint16_t PowerDataAddress = 1408;
 
-const uint16_t Power6V1VoltageAddress =   0 * 2 + PowerDataAddress;
-const uint16_t Power6V2VoltageAddress =   1 * 2 + PowerDataAddress;
-const uint16_t Power8V1VoltageAddress =   2 * 2 + PowerDataAddress;
-const uint16_t Power8V2VoltageAddress =   3 * 2 + PowerDataAddress;
-const uint16_t Power12VoltageAddress =    4 * 2 + PowerDataAddress;
-const uint16_t Power48VoltageAddress =    5 * 2 + PowerDataAddress;
+const uint16_t Supply6V1VoltageAddress =   0 * 2 + PowerDataAddress;
+const uint16_t Supply6V2VoltageAddress =   1 * 2 + PowerDataAddress;
+const uint16_t Supply8V1VoltageAddress =   2 * 2 + PowerDataAddress;
+const uint16_t Supply8V2VoltageAddress =   3 * 2 + PowerDataAddress;
+const uint16_t Supply12VoltageAddress =    4 * 2 + PowerDataAddress;
+const uint16_t Supply48VoltageAddress =    5 * 2 + PowerDataAddress;
 
-const uint16_t Power6V1CurrentAddress =   0 * 2 + 12 + PowerDataAddress;
-const uint16_t Power6V2CurrentAddress =   1 * 2 + 12 + PowerDataAddress;
-const uint16_t Power8V1CurrentAddress =   2 * 2 + 12 + PowerDataAddress;
-const uint16_t Power8V2CurrentAddress =   3 * 2 + 12 + PowerDataAddress;
-const uint16_t Power12CurrentAddress =    4 * 2 + 12 + PowerDataAddress;
-const uint16_t Power48CurrentAddress =    5 * 2 + 12 + PowerDataAddress;
+const uint16_t Supply6V1CurrentAddress =   0 * 2 + 12 + PowerDataAddress;
+const uint16_t Supply6V2CurrentAddress =   1 * 2 + 12 + PowerDataAddress;
+const uint16_t Supply8V1CurrentAddress =   2 * 2 + 12 + PowerDataAddress;
+const uint16_t Supply8V2CurrentAddress =   3 * 2 + 12 + PowerDataAddress;
+const uint16_t Supply12CurrentAddress =    4 * 2 + 12 + PowerDataAddress;
+const uint16_t Supply48CurrentAddress =    5 * 2 + 12 + PowerDataAddress;
 
 struct PowerStateAddress
 {
-    int PowerVoltageAddress;
-    int PowerCurrentAddress;
+    int SupplyVoltageAddress;
+    int SupplyCurrentAddress;
 };
 
 static std::map<int ,PowerStateAddress> powerStateMap =
 {
-    {PowerSettings::Power12V, {Power12VoltageAddress, Power12CurrentAddress}},
-    {PowerSettings::Power6V1, {Power6V1VoltageAddress, Power6V1CurrentAddress}},
-    {PowerSettings::Power6V2, {Power6V2VoltageAddress, Power6V2CurrentAddress}},
-    {PowerSettings::Power8V1, {Power8V1VoltageAddress, Power8V1CurrentAddress}},
-    {PowerSettings::Power8V2, {Power8V2VoltageAddress, Power8V2CurrentAddress}},
-    {PowerSettings::Power48V, {Power48VoltageAddress, Power48CurrentAddress}}
+    {PowerData::Supply12V, {Supply12VoltageAddress, Supply12CurrentAddress}},
+    {PowerData::Supply6V1, {Supply6V1VoltageAddress, Supply6V1CurrentAddress}},
+    {PowerData::Supply6V2, {Supply6V2VoltageAddress, Supply6V2CurrentAddress}},
+    {PowerData::Supply8V1, {Supply8V1VoltageAddress, Supply8V1CurrentAddress}},
+    {PowerData::Supply8V2, {Supply8V2VoltageAddress, Supply8V2CurrentAddress}},
+    {PowerData::Supply48V, {Supply48VoltageAddress, Supply48CurrentAddress}}
 };
 
 #endif // AR60XPACKETDEFINITION_H

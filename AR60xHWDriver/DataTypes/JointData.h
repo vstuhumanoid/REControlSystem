@@ -1,13 +1,15 @@
-#ifndef JOINTINFORMATION_H
-#define JOINTINFORMATION_H
+#ifndef JOINTDATA_H
+#define JOINTDATA_H
 
 #include <string>
 
-class JointInformation
+class JointData
 {
 public:
-    int jointNumber;        // Номер узла
-    std::string jointName;  // Имя узла
+    JointData();
+
+    int number;        // Номер узла
+    std::string name;  // Имя узла
 
     int channel;            // Номер канала в пакете управления
 
@@ -31,8 +33,6 @@ public:
     int offset;             // Смещение абсолютного положения
     bool isReverce;         // Реверсировать углы
     bool isEnable;          // Задействовать узел
-
-    JointInformation();
 };
 
-#endif // JOINTINFORMATION_H
+#endif // JOINTDATA_H

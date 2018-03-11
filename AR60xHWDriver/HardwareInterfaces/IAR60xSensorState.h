@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../Elements/SensorState.h"
+#include "../DataTypes/SensorState.h"
 
 class IAR60xSensorState
 {
