@@ -38,7 +38,7 @@ short AR60xRecvPacket::jointGetCurrent(short number)
 {
     locker.lock();
     int channel = desc->joints.at(number).channel;
-    int16_t value = readInt16(channel * 16 + MOTOR_CURRENT);
+    int16_t value = readInt16(channel * 16 + JointCurrentAddress);
     locker.unlock();
     return value;
 }
@@ -47,7 +47,7 @@ short AR60xRecvPacket::jointGetVoltage(short number)
 {
     locker.lock();
     int channel = desc->joints.at(number).channel;
-    int16_t value = readInt16(channel * 16 + MOTOR_VOLTAGE);
+    int16_t value = readInt16(channel * 16 + JointVoltageAddress);
     locker.unlock();
     return value;
 }
@@ -56,34 +56,35 @@ short AR60xRecvPacket::jointGetPosition(short number)
 {
     locker.lock();
     int channel = desc->joints.at(number).channel;
-    int16_t value = readInt16(channel * 16 + MOTOR_ANGLE);
+    int16_t value = readInt16(channel * 16 + JointPositionAddress);
     locker.unlock();
     return value;
 }
 
-short AR60xRecvPacket::jointGetPropGate(short number)
+short AR60xRecvPacket::jointGetPGain(short number)
 {
     locker.lock();
     int channel = desc->joints.at(number).channel;
-    int16_t value = readInt16(channel * 16 + MOTOR_P_GATE);
+    int16_t value = readInt16(channel * 16 + JointPGainAddress);
     locker.unlock();
     return value;
 }
 
-short AR60xRecvPacket::jointGetIntGate(short number)
+short AR60xRecvPacket::jointGetIGain(short number)
 {
     locker.lock();
     int channel = desc->joints.at(number).channel;
-    int16_t value = readInt16(channel * 16 + MOTOR_I_GATE);
+    int16_t value = readInt16(channel * 16 + JointIGaneAddress);
     locker.unlock();
     return value;
 }
 
+// TODO : возвращать не в short!!!
 short AR60xRecvPacket::jointGetState(short number)
 {
     locker.lock();
     int channel = desc->joints.at(number).channel;
-    int16_t value = readInt16(channel * 16 + MOTOR_STATE);
+    int16_t value = readInt16(channel * 16 + JointStateAddress);
     locker.unlock();
     return value;
 }
@@ -94,9 +95,9 @@ short AR60xRecvPacket::jointGetLowerLimit(short number)
     locker.lock();
     int channel = desc->joints.at(number).channel;
     if(desc->joints.at(number).isReverce)
-        value = -1 * readInt16(channel * 16 + MOTOR_MAX_ANGLE);
+        value = -1 * readInt16(channel * 16 + JointUpperLimitAddress);
     else
-        value = readInt16(channel * 16 + MOTOR_MIN_ANGLE);
+        value = readInt16(channel * 16 + JointLowerLimitAddress);
     locker.unlock();
     return value;
 }
@@ -107,29 +108,29 @@ short AR60xRecvPacket::jointGetUpperLimit(short number)
     locker.lock();
     int channel = desc->joints.at(number).channel;
     if(desc->joints.at(number).isReverce)
-        value = -1 * readInt16(channel * 16 + MOTOR_MIN_ANGLE);
+        value = -1 * readInt16(channel * 16 + JointLowerLimitAddress);
     else
-        value = readInt16(channel * 16 + MOTOR_MAX_ANGLE);
+        value = readInt16(channel * 16 + JointUpperLimitAddress);
     locker.unlock();
     return value;
 }
 
-float AR60xRecvPacket::powerGetVoltage(Powers power)
+float AR60xRecvPacket::powerGetVoltage(PowerSettings::Powers power)
 {
    locker.lock();
    int address = powerStateMap.at(power).PowerVoltageAddress;
    float value = readFloat(address) / 1000;
-   if(address == POWER_VOLTAGE_48) value *= 10;
+   if(address == Power48VoltageAddress) value *= 10;
    locker.unlock();
    return value;
 }
 
-float AR60xRecvPacket::powerGetCurrent(Powers power)
+float AR60xRecvPacket::powerGetCurrent(PowerSettings::Powers power)
 {
     locker.lock();
     int address = powerStateMap.at(power).PowerCurrentAddress;
     float value = readFloat(address) / 1000;
-    if(address == POWER_CURRENT_48) value *= 10;
+    if(address == Power48CurrentAddress) value *= 10;
     locker.unlock();
     return value;
 }

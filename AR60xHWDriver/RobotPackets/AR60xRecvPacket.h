@@ -21,14 +21,14 @@ public:
     short jointGetCurrent( short number );
     short jointGetVoltage( short number );
     short jointGetPosition( short number );
-    short jointGetPropGate( short number );
-    short jointGetIntGate( short number );
+    short jointGetPGain( short number );
+    short jointGetIGain( short number );
     short jointGetState( short number );
     short jointGetLowerLimit( short number );
     short jointGetUpperLimit( short number );
 
-    float powerGetVoltage(Powers power);
-    float powerGetCurrent(Powers power);
+    float powerGetVoltage(PowerSettings::Powers power);
+    float powerGetCurrent(PowerSettings::Powers power);
 
     const char *getByteArray();
     std::mutex *getMutex();

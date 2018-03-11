@@ -44,7 +44,7 @@ MainWindow::~MainWindow()
 void MainWindow::on_pushButton_clicked()
 {
     driver->JointSetPosition(1, driver->JointGetPosition(1));
-    driver->JointSetState(1, JointState::JOINT_STATES::TRACE);
+    driver->JointSetState(1, JointState::TRACE);
     qDebug() << "joint 1 set for trace" << endl;
 }
 

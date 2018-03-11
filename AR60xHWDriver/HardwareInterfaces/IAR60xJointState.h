@@ -15,7 +15,7 @@ public:
     virtual bool JointGetReverce(int joint) = 0;
     virtual PowerState::PowerSupplyState JointGetSupplyState(int joint) = 0;
     virtual JointSettings::JointLimits JointGetLimits(int joint) = 0;
-    virtual void JointGetEnable(int joint) = 0;
-    virtual JointSettings::PIDGates JointGetGates(int joint) = 0;
+    virtual bool JointGetEnable(int joint) = 0;
+    virtual JointSettings::PIDGains JointGetPIDGains(int joint) = 0;
 };
 

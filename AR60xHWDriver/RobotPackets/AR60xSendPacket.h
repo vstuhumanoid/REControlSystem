@@ -23,17 +23,15 @@ public:
 
     void jointSetPosition( short number, short value );
     void jointSetOffset( short number, short value );
-    void jointSetPropGate( short number, short value );
-    void jointSetIntGate( short number, short value );
-    void jointSetDiffGate( short number, short value );
+    void jointSetPGain( short number, short value );
+    void jointSetIGain( short number, short value );
+    void jointSetDGain( short number, short value );
     void jointSetLowerLimit( short number, short value );
     void jointSetUpperLimit( short number, short value );
-    void jointSetEnable( short number, bool value );
-    void jointSetReverce( short number, bool value );
-    void jointSetState( short number , JointState::JOINT_STATES state );
+    void jointSetState( short number , JointState::JointStates state );
 
-    void PowerSetOn( Powers power );
-    void PowerSetOff( Powers power );
+    void PowerSetOn( PowerSettings::Powers power );
+    void PowerSetOff( PowerSettings::Powers power );
 
 private:
     AR60xDescription * desc;

@@ -3,14 +3,14 @@
 #include <string>
 
 /*
-* Состояния датчиков робота
+* РЎРѕСЃС‚РѕСЏРЅРёСЏ РґР°С‚С‡РёРєРѕРІ СЂРѕР±РѕС‚Р°
 */
 class SensorState
 {
 public:
 
-	float sensorValue; // Значение величины
-	std::string name; // Имя датчика
+	float sensorValue; // Р—РЅР°С‡РµРЅРёРµ РІРµР»РёС‡РёРЅС‹
+	std::string name; // РРјСЏ РґР°С‚С‡РёРєР°
 
 	SensorState();
 	~SensorState();

@@ -21,5 +21,17 @@ HEADERS  += mainwindow.h
 
 FORMS    += mainwindow.ui
 
-LIBS += -L../../../BUILDS/REControlSystem/Build_AR60xHWDriver/ -lAR60xHWDriver
-INCLUDEPATH += ../AR60xHWDriver/
+win32:
+{
+    LIBS += -L../../../BUILDS/REControlSystem/Build_AR60xHWDriver/debug/ -lAR60xHWDriver
+    INCLUDEPATH += ../AR60xHWDriver/
+}
+
+unix:
+{
+    LIBS += -L../../../BUILDS/REControlSystem/Build_AR60xHWDriver/ -lAR60xHWDriver
+    INCLUDEPATH += ../AR60xHWDriver/
+}
+
+
+

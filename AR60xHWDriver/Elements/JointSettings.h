@@ -20,14 +20,14 @@ public:
 
     JointLimits limits;
 
-    struct PIDGates
+    struct PIDGains
     {
-        int PropGate;
-        int IntGate;
-        int DiffGate;
+        int proportional;
+        int integral;
+        int derivative;
     };
 
-	PIDGates gates; // пиды
+    PIDGains gains; // пиды
 	bool isEnable; // используется
 	bool isReverce; // реверс
 

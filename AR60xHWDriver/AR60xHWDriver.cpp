@@ -21,9 +21,9 @@ bool AR60xHWDriver::serialize(std::string fileName)
         jointInformation["channel"] = (*it).second.channel;
 
         QJsonObject jointGates;
-        jointGates["propGate"] = (*it).second.gates.propGate;
-        jointGates["intGate"] = (*it).second.gates.intGate;
-        jointGates["diffGate"] = (*it).second.gates.diffGate;
+        jointGates["propGate"] = (*it).second.gains.proportional;
+        jointGates["intGate"] = (*it).second.gains.integral;
+        jointGates["diffGate"] = (*it).second.gains.derivative;
         jointInformation["gates"] = jointGates;
 
         QJsonObject jointLimits;
@@ -103,9 +103,9 @@ bool AR60xHWDriver::deserialize(std::string fileName)
 
         QJsonObject jointGates = jointInformation["gates"].toObject();
 
-        joint.gates.propGate = jointGates["propGate"].toInt();
-        joint.gates.intGate = jointGates["intGate"].toInt();
-        joint.gates.diffGate = jointGates["diffGate"].toInt();
+        joint.gains.proportional = jointGates["propGate"].toInt();
+        joint.gains.integral = jointGates["intGate"].toInt();
+        joint.gains.derivative = jointGates["diffGate"].toInt();
 
         QJsonObject jointLimits = jointInformation["limits"].toObject();
         joint.limits.lowerLimit = jointLimits["lowerLimit"].toInt();
@@ -193,30 +193,34 @@ void AR60xHWDriver::JointSetPosition(int joint, int position)
 
 void AR60xHWDriver::JointSetOffset(int joint, int offset)
 {
-
+    desc->joints.at(joint).offset = offset;
+    sendpacket->jointSetOffset(joint, offset);
 }
 
 void AR60xHWDriver::JointSetReverce(int joint, bool isReverce)
 {
-
+    desc->joints.at(joint).isReverce = isReverce;
 }
 
-void AR60xHWDriver::JointSetGates(int joint, JointSettings::PIDGates gates)
+void AR60xHWDriver::JointSetPIDGains(int joint, JointSettings::PIDGains gains)
 {
-
+    sendpacket->jointSetPGain(joint, gains.proportional);
+    sendpacket->jointSetIGain(joint, gains.integral);
+    sendpacket->jointSetDGain(joint, gains.derivative);
 }
 
 void AR60xHWDriver::JointSetLimits(int joint, JointSettings::JointLimits limits)
 {
-
+    sendpacket->jointSetLowerLimit(joint, limits.lowerLimit);
+    sendpacket->jointSetUpperLimit(joint, limits.upperLimit);
 }
 
 void AR60xHWDriver::JointSetEnable(int joint, bool isEnable)
 {
-
+    desc->joints.at(joint).isEnable = isEnable;
 }
 
-void AR60xHWDriver::JointSetState(int joint, JointState::JOINT_STATES state)
+void AR60xHWDriver::JointSetState(int joint, JointState::JointStates state)
 {
     sendpacket->jointSetState(joint, state);
 }
@@ -233,37 +237,42 @@ void AR60xHWDriver::JointGetSettings(int joint, JointSettings &settings)
 
 int AR60xHWDriver::JointGetPosition(int joint)
 {
-
+    return recvPacket->jointGetPosition(joint);
 }
 
+//TODO: проверить!!!!
 JointState AR60xHWDriver::JointGetState(int joint)
 {
-
+    //return recvPacket->jointGetState(joint);
 }
 
 bool AR60xHWDriver::JointGetReverce(int joint)
 {
-
+    return desc->joints.at(joint).isReverce;
 }
 
 PowerState::PowerSupplyState AR60xHWDriver::JointGetSupplyState(int joint)
 {
-
+    PowerState::PowerSupplyState state;
+    state.Voltage = recvPacket->jointGetVoltage(joint);
+    state.Current = recvPacket->jointGetCurrent(joint);
+    return state;
 }
 
+//TODO: Удалить JointSettings перенсти вместо него JointInformation!!!!!
 JointSettings::JointLimits AR60xHWDriver::JointGetLimits(int joint)
 {
-
+    //return desc->joints.at(joint).limits;
 }
 
-void AR60xHWDriver::JointGetEnable(int joint)
+bool AR60xHWDriver::JointGetEnable(int joint)
 {
-
+    return desc->joints.at(joint).isEnable;
 }
 
-JointSettings::PIDGates AR60xHWDriver::JointGetGates(int joint)
+JointSettings::PIDGains AR60xHWDriver::JointGetPIDGains(int joint)
 {
-
+    //return desc->joints.at(joint).gains;
 }
 
 void AR60xHWDriver::PowerSetSettings(PowerSettings settings)
@@ -275,9 +284,9 @@ void AR60xHWDriver::PowerSetState(PowerSettings::Powers power, bool onOffState)
 {
     //TODO: заменить на PowerSetting::Powers в пакете
     if(onOffState)
-        sendpacket->PowerSetOn((Powers)power);
+        sendpacket->PowerSetOn(power);
     else
-        sendpacket->PowerSetOff((Powers)power);
+        sendpacket->PowerSetOff(power);
 }
 
 bool AR60xHWDriver::PowerGetOnOff(PowerSettings::Powers power)
@@ -287,12 +296,15 @@ bool AR60xHWDriver::PowerGetOnOff(PowerSettings::Powers power)
 
 PowerState::PowerSupplyState AR60xHWDriver::PowerGetSupplyState(PowerSettings::Powers power)
 {
-
+    PowerState::PowerSupplyState state;
+    state.Voltage = recvPacket->powerGetVoltage(power);
+    state.Current = recvPacket->powerGetCurrent(power);
+    return state;
 }
 
 SensorState AR60xHWDriver::SensorGetState(int sensor)
 {
-
+    //return recvPacket->sensorGetValue(sensor);
 }
 
 AR60xDescription *AR60xHWDriver::getRobotDesc()
@@ -310,12 +322,12 @@ bool AR60xHWDriver::saveConfig(std::string fileName)
     joint.offset = 34455;
     joint.jointNumber = 1;
 
-    JointInformation::PIDGates gates;
-    gates.diffGate = 5;
-    gates.intGate = 6;
-    gates.propGate = 1200;
+    JointInformation::PIDGains gates;
+    gates.derivative = 5;
+    gates.integral = 6;
+    gates.proportional = 1200;
 
-    joint.gates = gates;
+    joint.gains = gates;
 
     JointInformation::JointLimits limits;
     limits.lowerLimit = -1300;
@@ -335,11 +347,11 @@ bool AR60xHWDriver::saveConfig(std::string fileName)
     joint2.jointName = "joint 2";
     joint2.offset = 34455;
 
-    gates.diffGate = 5;
-    gates.intGate = 6;
-    gates.propGate = 1200;
+    gates.derivative = 5;
+    gates.integral = 6;
+    gates.proportional = 1200;
 
-    joint2.gates = gates;
+    joint2.gains = gates;
 
     limits.lowerLimit = -1300;
     limits.upperLimit = 1500;
@@ -374,9 +386,9 @@ bool AR60xHWDriver::generateConfig(std::string fileName)
     joint.channel = 1;
     joint.jointName = "Стопа Y (R)";
     joint.offset = -114;
-    joint.gates.propGate = 900;
-    joint.gates.intGate = 2;
-    joint.gates.diffGate = 1;
+    joint.gains.proportional = 900;
+    joint.gains.integral = 2;
+    joint.gains.derivative = 1;
     joint.limits.lowerLimit = -1500;
     joint.limits.upperLimit = 1500;
     joint.isReverce = false;
@@ -388,9 +400,9 @@ bool AR60xHWDriver::generateConfig(std::string fileName)
     joint.channel = 2;
     joint.jointName = "Стопа X (R)";
     joint.offset = -5361;
-    joint.gates.propGate = 900;
-    joint.gates.intGate = 2;
-    joint.gates.diffGate = 1;
+    joint.gains.proportional = 900;
+    joint.gains.integral = 2;
+    joint.gains.derivative = 1;
     joint.limits.lowerLimit = -4000;
     joint.limits.upperLimit = 8000;
     joint.isReverce = false;
@@ -402,9 +414,9 @@ bool AR60xHWDriver::generateConfig(std::string fileName)
     joint.channel = 3;
     joint.jointName = "Колено (R)";
     joint.offset = -7804;
-    joint.gates.propGate = 900;
-    joint.gates.intGate = 2;
-    joint.gates.diffGate = 1;
+    joint.gains.proportional = 900;
+    joint.gains.integral = 2;
+    joint.gains.derivative = 1;
     joint.limits.lowerLimit = -10000;
     joint.limits.upperLimit = 700;
     joint.isReverce = false;
@@ -416,9 +428,9 @@ bool AR60xHWDriver::generateConfig(std::string fileName)
     joint.channel = 4;
     joint.jointName = "Бедро X (R)";
     joint.offset = 4851;
-    joint.gates.propGate = 900;
-    joint.gates.intGate = 2;
-    joint.gates.diffGate = 1;
+    joint.gains.proportional = 900;
+    joint.gains.integral = 2;
+    joint.gains.derivative = 1;
     joint.limits.lowerLimit = -1000;
     joint.limits.upperLimit = 7500;
     joint.isReverce = true;
@@ -430,9 +442,9 @@ bool AR60xHWDriver::generateConfig(std::string fileName)
     joint.channel = 5;
     joint.jointName = "Бедро Y (R)";
     joint.offset = 193;
-    joint.gates.propGate = 900;
-    joint.gates.intGate = 2;
-    joint.gates.diffGate = 1;
+    joint.gains.proportional = 900;
+    joint.gains.integral = 2;
+    joint.gains.derivative = 1;
     joint.limits.lowerLimit = -1400;
     joint.limits.upperLimit = 1500;
     joint.isReverce = true;
@@ -444,9 +456,9 @@ bool AR60xHWDriver::generateConfig(std::string fileName)
     joint.channel = 6;
     joint.jointName = "Бедро вращение (R)";
     joint.offset = 8208;
-    joint.gates.propGate = 900;
-    joint.gates.intGate = 2;
-    joint.gates.diffGate = 1;
+    joint.gains.proportional = 900;
+    joint.gains.integral = 2;
+    joint.gains.derivative = 1;
     joint.limits.lowerLimit = -1000;
     joint.limits.upperLimit = 1000;
     joint.isReverce = true;
@@ -458,9 +470,9 @@ bool AR60xHWDriver::generateConfig(std::string fileName)
     joint.channel = 7;
     joint.jointName = "Стопа Y (L)";
     joint.offset = 6389;
-    joint.gates.propGate = 900;
-    joint.gates.intGate = 2;
-    joint.gates.diffGate = 1;
+    joint.gains.proportional = 900;
+    joint.gains.integral = 2;
+    joint.gains.derivative = 1;
     joint.limits.lowerLimit = -1500;
     joint.limits.upperLimit = 1500;
     joint.isReverce = true;
@@ -472,9 +484,9 @@ bool AR60xHWDriver::generateConfig(std::string fileName)
     joint.channel = 8;
     joint.jointName = "Стопа X (L)";
     joint.offset = -870;
-    joint.gates.propGate = 900;
-    joint.gates.intGate = 2;
-    joint.gates.diffGate = 1;
+    joint.gains.proportional = 900;
+    joint.gains.integral = 2;
+    joint.gains.derivative = 1;
     joint.limits.lowerLimit = -4000;
     joint.limits.upperLimit = 8000;
     joint.isReverce = true;
@@ -486,9 +498,9 @@ bool AR60xHWDriver::generateConfig(std::string fileName)
     joint.channel = 9;
     joint.jointName = "Колено (L)";
     joint.offset = -4965;
-    joint.gates.propGate = 900;
-    joint.gates.intGate = 2;
-    joint.gates.diffGate = 1;
+    joint.gains.proportional = 900;
+    joint.gains.integral = 2;
+    joint.gains.derivative = 1;
     joint.limits.lowerLimit = -10000;
     joint.limits.upperLimit = 700;
     joint.isReverce = true;
@@ -500,9 +512,9 @@ bool AR60xHWDriver::generateConfig(std::string fileName)
     joint.channel = 10;
     joint.jointName = "Бедро X (L)";
     joint.offset = -4429;
-    joint.gates.propGate = 900;
-    joint.gates.intGate = 2;
-    joint.gates.diffGate = 1;
+    joint.gains.proportional = 900;
+    joint.gains.integral = 2;
+    joint.gains.derivative = 1;
     joint.limits.lowerLimit = -1000;
     joint.limits.upperLimit = 7500;
     joint.isReverce = false;
@@ -514,9 +526,9 @@ bool AR60xHWDriver::generateConfig(std::string fileName)
     joint.channel = 11;
     joint.jointName = "Бедро Y (L)";
     joint.offset = 4218;
-    joint.gates.propGate = 900;
-    joint.gates.intGate = 2;
-    joint.gates.diffGate = 1;
+    joint.gains.proportional = 900;
+    joint.gains.integral = 2;
+    joint.gains.derivative = 1;
     joint.limits.lowerLimit = -1400;
     joint.limits.upperLimit = 1500;
     joint.isReverce = false;
@@ -528,9 +540,9 @@ bool AR60xHWDriver::generateConfig(std::string fileName)
     joint.channel = 12;
     joint.jointName = "Бедро вращение (L)";
     joint.offset = 7664;
-    joint.gates.propGate = 900;
-    joint.gates.intGate = 2;
-    joint.gates.diffGate = 1;
+    joint.gains.proportional = 900;
+    joint.gains.integral = 2;
+    joint.gains.derivative = 1;
     joint.limits.lowerLimit = -1000;
     joint.limits.upperLimit = 1000;
     joint.isReverce = false;

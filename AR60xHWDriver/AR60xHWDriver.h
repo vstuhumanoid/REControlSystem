@@ -66,10 +66,10 @@ public:
     void JointSetPosition(int joint, int position)override;
     void JointSetOffset(int joint, int offset)override;
     void JointSetReverce(int joint, bool isReverce)override;
-    void JointSetGates(int joint, JointSettings::PIDGates gates)override;
+    void JointSetPIDGains(int joint, JointSettings::PIDGains gains)override;
     void JointSetLimits(int joint, JointSettings::JointLimits limits)override;
     void JointSetEnable(int joint, bool isEnable)override;
-    void JointSetState(int joint, JointState::JOINT_STATES state)override;
+    void JointSetState(int joint, JointState::JointStates state)override;
 
     void JointsGetPositions(int joints[], int positions[])override;
     void JointGetSettings(int joint, JointSettings & settings)override;
@@ -79,8 +79,8 @@ public:
     bool JointGetReverce(int joint)override;
     PowerState::PowerSupplyState JointGetSupplyState(int joint)override;
     JointSettings::JointLimits JointGetLimits(int joint)override;
-    void JointGetEnable(int joint)override;
-    JointSettings::PIDGates JointGetGates(int joint)override;
+    bool JointGetEnable(int joint)override;
+    JointSettings::PIDGains JointGetPIDGains(int joint)override;
 
     void PowerSetSettings(PowerSettings settings)override;
     void PowerSetState(PowerSettings::Powers power, bool onOffState)override;

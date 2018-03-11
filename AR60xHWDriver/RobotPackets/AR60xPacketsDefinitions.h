@@ -1,6 +1,8 @@
 #ifndef AR60XPACKETDEFINITION_H
 #define AR60XPACKETDEFINITION_H
 
+#include "../Elements/PowerSettings.h"
+
 #include <iostream>
 #include <map>
 
@@ -9,75 +11,65 @@ typedef unsigned char BYTE;
 const uint16_t packetSize  = 1472;
 const uint16_t countChannels = 71;
 
-const uint16_t SENSOR_YAW = 2;
-const uint16_t SENSOR_PITCH = 4;
-const uint16_t SENSOR_ROLL = 6;
+const uint16_t SensorYawAddress = 2;
+const uint16_t SensorPitchAddress = 4;
+const uint16_t SensorRollAddress = 6;
 
-const uint16_t SENSOR_UCH0 = 8;
-const uint16_t SENSOR_UCH1 = 10;
-const uint16_t SENSOR_UCH2 = 12;
-const uint16_t SENSOR_UCH3 = 14;
+const uint16_t SensorUch0Address = 8;
+const uint16_t SensorUch1Address = 10;
+const uint16_t SensorUch2Address = 12;
+const uint16_t SensorUch3Address = 14;
 
-const uint16_t SENSOR_TX = 8;
-const uint16_t SENSOR_TY = 10;
-const uint16_t SENSOR_FZ = 12;
+const uint16_t SensorTxAddress = 8;
+const uint16_t SensorTyAddress = 10;
+const uint16_t SensorFzAddress = 12;
 
 static std::map<int ,int> sensorsMap =
 {
-    {1, SENSOR_YAW},
-    {2, SENSOR_PITCH},
-    {3, SENSOR_ROLL},
-    {4, SENSOR_TX},
-    {5, SENSOR_TY},
-    {6, SENSOR_FZ},
-    {7, SENSOR_UCH0},
-    {8, SENSOR_UCH1},
-    {9, SENSOR_UCH2},
-    {10, SENSOR_UCH3},
-    {11, SENSOR_UCH0},
-    {12, SENSOR_UCH1},
-    {13, SENSOR_UCH2},
-    {14, SENSOR_UCH3}
+    {1, SensorYawAddress},
+    {2, SensorPitchAddress},
+    {3, SensorRollAddress},
+    {4, SensorTxAddress},
+    {5, SensorTyAddress},
+    {6, SensorFzAddress},
+    {7, SensorUch0Address},
+    {8, SensorUch1Address},
+    {9, SensorUch2Address},
+    {10, SensorUch3Address},
+    {11, SensorUch0Address},
+    {12, SensorUch1Address},
+    {13, SensorUch2Address},
+    {14, SensorUch3Address}
 };
 
-enum Powers
-{
-    Power12V,
-    Power6V1,
-    Power6V2,
-    Power8V1,
-    Power8V2,
-    Power48V
-};
+const uint16_t DeviceNumberAddress =  0;
 
-const uint16_t DEVICE_CHANNEL =  0;
+const uint16_t JointStateAddress =     1;
+const uint16_t JointPositionAddress =     2;
+const uint16_t JointVoltageAddress =   4;
+const uint16_t JointCurrentAddress =   6;
+const uint16_t JointOffsetAddress  =    6;
+const uint16_t JointPGainAddress =    8;
+const uint16_t JointIGaneAddress =    10;
+const uint16_t JointDGainAddress =    4;
+const uint16_t JointLowerLimitAddress = 12;
+const uint16_t JointUpperLimitAddress = 14;
 
-const uint16_t MOTOR_STATE =     1;
-const uint16_t MOTOR_ANGLE =     2;
-const uint16_t MOTOR_VOLTAGE =   4;
-const uint16_t MOTOR_CURRENT =   6;
-const uint16_t MOTOR_SHIFT  =    6;
-const uint16_t MOTOR_P_GATE =    8;
-const uint16_t MOTOR_I_GATE =    10;
-const uint16_t MOTOR_D_GATE =    4;
-const uint16_t MOTOR_MIN_ANGLE = 12;
-const uint16_t MOTOR_MAX_ANGLE = 14;
+const uint16_t PowerDataAddress = 1408;
 
-const uint16_t POWER_ADDRESS = 1408;
+const uint16_t Power6V1VoltageAddress =   0 * 2 + PowerDataAddress;
+const uint16_t Power6V2VoltageAddress =   1 * 2 + PowerDataAddress;
+const uint16_t Power8V1VoltageAddress =   2 * 2 + PowerDataAddress;
+const uint16_t Power8V2VoltageAddress =   3 * 2 + PowerDataAddress;
+const uint16_t Power12VoltageAddress =    4 * 2 + PowerDataAddress;
+const uint16_t Power48VoltageAddress =    5 * 2 + PowerDataAddress;
 
-const uint16_t POWER_VOLTAGE_6_1 =   0 * 2 + POWER_ADDRESS;
-const uint16_t POWER_VOLTAGE_6_2 =   1 * 2 + POWER_ADDRESS;
-const uint16_t POWER_VOLTAGE_8_1 =   2 * 2 + POWER_ADDRESS;
-const uint16_t POWER_VOLTAGE_8_2 =   3 * 2 + POWER_ADDRESS;
-const uint16_t POWER_VOLTAGE_12 =    4 * 2 + POWER_ADDRESS;
-const uint16_t POWER_VOLTAGE_48 =    5 * 2 + POWER_ADDRESS;
-
-const uint16_t POWER_CURRENT_6_1 =   0 * 2 + 12 + POWER_ADDRESS;
-const uint16_t POWER_CURRENT_6_2 =   1 * 2 + 12 + POWER_ADDRESS;
-const uint16_t POWER_CURRENT_8_1 =   2 * 2 + 12 + POWER_ADDRESS;
-const uint16_t POWER_CURRENT_8_2 =   3 * 2 + 12 + POWER_ADDRESS;
-const uint16_t POWER_CURRENT_12 =    4 * 2 + 12 + POWER_ADDRESS;
-const uint16_t POWER_CURRENT_48 =    5 * 2 + 12 + POWER_ADDRESS;
+const uint16_t Power6V1CurrentAddress =   0 * 2 + 12 + PowerDataAddress;
+const uint16_t Power6V2CurrentAddress =   1 * 2 + 12 + PowerDataAddress;
+const uint16_t Power8V1CurrentAddress =   2 * 2 + 12 + PowerDataAddress;
+const uint16_t Power8V2CurrentAddress =   3 * 2 + 12 + PowerDataAddress;
+const uint16_t Power12CurrentAddress =    4 * 2 + 12 + PowerDataAddress;
+const uint16_t Power48CurrentAddress =    5 * 2 + 12 + PowerDataAddress;
 
 struct PowerStateAddress
 {
@@ -87,12 +79,12 @@ struct PowerStateAddress
 
 static std::map<int ,PowerStateAddress> powerStateMap =
 {
-    {Power12V, {POWER_VOLTAGE_12, POWER_CURRENT_12}},
-    {Power6V1, {POWER_VOLTAGE_6_1, POWER_CURRENT_6_1}},
-    {Power6V2, {POWER_VOLTAGE_6_2, POWER_CURRENT_6_2}},
-    {Power8V1, {POWER_VOLTAGE_8_1, POWER_CURRENT_8_1}},
-    {Power8V2, {POWER_VOLTAGE_8_2, POWER_CURRENT_8_2}},
-    {Power48V, {POWER_VOLTAGE_48, POWER_CURRENT_48}}
+    {PowerSettings::Power12V, {Power12VoltageAddress, Power12CurrentAddress}},
+    {PowerSettings::Power6V1, {Power6V1VoltageAddress, Power6V1CurrentAddress}},
+    {PowerSettings::Power6V2, {Power6V2VoltageAddress, Power6V2CurrentAddress}},
+    {PowerSettings::Power8V1, {Power8V1VoltageAddress, Power8V1CurrentAddress}},
+    {PowerSettings::Power8V2, {Power8V2VoltageAddress, Power8V2CurrentAddress}},
+    {PowerSettings::Power48V, {Power48VoltageAddress, Power48CurrentAddress}}
 };
 
 #endif // AR60XPACKETDEFINITION_H

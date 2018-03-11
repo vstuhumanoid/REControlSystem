@@ -7,7 +7,7 @@ class JointState
 public:
 
 	// Состояние узлов (моторов)
-	enum JOINT_STATES
+    enum JointStates
 	{
 		BRAKE, // мотор обесточен, муфта заблокирована
 		STOP, // мотор включен, муфта разблокированна
@@ -15,7 +15,7 @@ public:
 		TRACE // мотор управляется углом
 	};
 
-    JOINT_STATES state;
+    JointStates state;
     PowerState::PowerSupplyState supplyState;
 
 	JointState();

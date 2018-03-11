@@ -11,14 +11,14 @@ public:
 
     int channel;            // Номер канала в пакете управления
 
-    struct PIDGates         // Структура регулятора
+    struct PIDGains         // Структура регулятора
     {
-        int propGate;
-        int intGate;
-        int diffGate;
+        int proportional;
+        int integral;
+        int derivative;
     };
 
-    PIDGates gates;         // Коэффициенты регулирования
+    PIDGains gains;         // Коэффициенты регулирования
 
     struct JointLimits      // Структура пределов
     {

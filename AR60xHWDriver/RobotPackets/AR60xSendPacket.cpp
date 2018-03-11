@@ -20,9 +20,9 @@ void AR60xSendPacket::init()
     {
         JointInformation joint = (*it).second;
         writeInt16(joint.channel * 16, joint.jointNumber);
-        jointSetPropGate(joint.jointNumber, joint.gates.propGate);
-        jointSetIntGate(joint.jointNumber, joint.gates.intGate);
-        jointSetDiffGate(joint.jointNumber, joint.gates.diffGate);
+        jointSetPGain(joint.jointNumber, joint.gains.proportional);
+        jointSetIGain(joint.jointNumber, joint.gains.integral);
+        jointSetDGain(joint.jointNumber, joint.gains.derivative);
         jointSetOffset(joint.jointNumber, joint.offset);
 
         jointSetLowerLimit(joint.jointNumber, joint.limits.lowerLimit);
@@ -64,7 +64,7 @@ void AR60xSendPacket::jointSetPosition(short number, short value)
     }
     if(isReverce) value = -1 * value;
     locker.lock();
-    writeInt16(channel * 16 + MOTOR_ANGLE, value);
+    writeInt16(channel * 16 + JointPositionAddress, value);
     locker.unlock();
 }
 
@@ -72,31 +72,31 @@ void AR60xSendPacket::jointSetOffset(short number, short value)
 {
     locker.lock();
     short channel = desc->joints.at(number).channel;
-    writeInt16(channel * 16 + MOTOR_SHIFT, value);
+    writeInt16(channel * 16 + JointOffsetAddress, value);
     locker.unlock();
 }
 
-void AR60xSendPacket::jointSetPropGate(short number, short value)
+void AR60xSendPacket::jointSetPGain(short number, short value)
 {
     locker.lock();
     short channel = desc->joints.at(number).channel;
-    writeInt16(channel * 16 + MOTOR_P_GATE, value);
+    writeInt16(channel * 16 + JointPGainAddress, value);
     locker.unlock();
 }
 
-void AR60xSendPacket::jointSetIntGate(short number, short value)
+void AR60xSendPacket::jointSetIGain(short number, short value)
 {
     locker.lock();
     short channel = desc->joints.at(number).channel;
-    writeInt16(channel * 16 + MOTOR_I_GATE, value);
+    writeInt16(channel * 16 + JointIGaneAddress, value);
     locker.unlock();
 }
 
-void AR60xSendPacket::jointSetDiffGate(short number, short value)
+void AR60xSendPacket::jointSetDGain(short number, short value)
 {
     locker.lock();
     short channel = desc->joints.at(number).channel;
-    writeInt16(channel * 16 + MOTOR_D_GATE, value);
+    writeInt16(channel * 16 + JointDGainAddress, value);
     locker.unlock();
 }
 
@@ -106,9 +106,9 @@ void AR60xSendPacket::jointSetLowerLimit(short number, short value)
     short channel = desc->joints.at(number).channel;
     bool isReverce = desc->joints.at(number).isReverce;
     if(isReverce)
-        writeInt16(channel * 16 + MOTOR_MAX_ANGLE, -1 * value);
+        writeInt16(channel * 16 + JointUpperLimitAddress, -1 * value);
     else
-        writeInt16(channel * 16 + MOTOR_MIN_ANGLE, value);
+        writeInt16(channel * 16 + JointLowerLimitAddress, value);
     locker.unlock();
 }
 
@@ -118,13 +118,13 @@ void AR60xSendPacket::jointSetUpperLimit(short number, short value)
     short channel = desc->joints.at(number).channel;
     bool isReverce = desc->joints.at(number).isReverce;
     if(isReverce)
-        writeInt16(channel * 16 + MOTOR_MIN_ANGLE, -1 * value);
+        writeInt16(channel * 16 + JointLowerLimitAddress, -1 * value);
     else
-        writeInt16(channel * 16 + MOTOR_MAX_ANGLE, value);
+        writeInt16(channel * 16 + JointUpperLimitAddress, value);
     locker.unlock();
 }
 
-void AR60xSendPacket::jointSetState(short number, JointState::JOINT_STATES state)
+void AR60xSendPacket::jointSetState(short number, JointState::JointStates state)
 {
     locker.lock();
     short channel = desc->joints.at(number).channel;
@@ -159,37 +159,38 @@ void AR60xSendPacket::jointSetState(short number, JointState::JOINT_STATES state
     locker.unlock();
 }
 
-void AR60xSendPacket::PowerSetOff(Powers power)
+// TODO: Убрать switch
+void AR60xSendPacket::PowerSetOff(PowerSettings::Powers power)
 {
     switch (power) {
-    case Power12V:
+    case PowerSettings::Power12V:
     {
-        byteArray[POWER_ADDRESS + 1] &= (255-16);
+        byteArray[PowerDataAddress + 1] &= (255-16);
     }
         break;
-    case Power6V1:
+    case PowerSettings::Power6V1:
     {
-        byteArray[POWER_ADDRESS + 1] &= (255-1);
+        byteArray[PowerDataAddress + 1] &= (255-1);
     }
         break;
-    case Power6V2:
+    case PowerSettings::Power6V2:
     {
-        byteArray[POWER_ADDRESS + 1] &= (255-2);
+        byteArray[PowerDataAddress + 1] &= (255-2);
     }
         break;
-    case Power8V1:
+    case PowerSettings::Power8V1:
     {
-        byteArray[POWER_ADDRESS + 1] &= (255-4);
+        byteArray[PowerDataAddress + 1] &= (255-4);
     }
         break;
-    case Power8V2:
+    case PowerSettings::Power8V2:
     {
-        byteArray[POWER_ADDRESS + 1] &= (255-8);
+        byteArray[PowerDataAddress + 1] &= (255-8);
     }
         break;
-    case Power48V:
+    case PowerSettings::Power48V:
     {
-        byteArray[POWER_ADDRESS + 1] &= (255-32);
+        byteArray[PowerDataAddress + 1] &= (255-32);
     }
         break;
     default:
@@ -197,37 +198,39 @@ void AR60xSendPacket::PowerSetOff(Powers power)
     }
 }
 
-void AR60xSendPacket::PowerSetOn(Powers power)
+
+// TODO: Убрать switch
+void AR60xSendPacket::PowerSetOn(PowerSettings::Powers power)
 {
     switch (power) {
-    case Power12V:
+    case PowerSettings::Power12V:
     {
-        byteArray[POWER_ADDRESS + 1] |= 16;
+        byteArray[PowerDataAddress + 1] |= 16;
     }
         break;
-    case Power6V1:
+    case PowerSettings::Power6V1:
     {
-        byteArray[POWER_ADDRESS + 1] |= 1;
+        byteArray[PowerDataAddress + 1] |= 1;
     }
         break;
-    case Power6V2:
+    case PowerSettings::Power6V2:
     {
-        byteArray[POWER_ADDRESS + 1] |= 2;
+        byteArray[PowerDataAddress + 1] |= 2;
     }
         break;
-    case Power8V1:
+    case PowerSettings::Power8V1:
     {
-        byteArray[POWER_ADDRESS + 1] |= 4;
+        byteArray[PowerDataAddress + 1] |= 4;
     }
         break;
-    case Power8V2:
+    case PowerSettings::Power8V2:
     {
-        byteArray[POWER_ADDRESS + 1] |= 8;
+        byteArray[PowerDataAddress + 1] |= 8;
     }
         break;
-    case Power48V:
+    case PowerSettings::Power48V:
     {
-        byteArray[POWER_ADDRESS + 1] |= 32;
+        byteArray[PowerDataAddress + 1] |= 32;
     }
         break;
     default:
