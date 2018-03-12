@@ -25,7 +25,9 @@ SOURCES += AR60xHWDriver.cpp \
     DataTypes/PowerData.cpp \
     DataTypes/SensorData.cpp \
     DataTypes/ConnectionData.cpp \
-    XMLSerializer.cpp
+    XMLSerializer.cpp \
+    Libs/TinyXML2/tinyxml2.cpp \
+    Libs/TinyXML2/xmltest.cpp
 
 HEADERS += AR60xHWDriver.h \
     RobotDescription/AR60xDescription.h \
@@ -45,7 +47,8 @@ HEADERS += AR60xHWDriver.h \
     DataTypes/SensorData.h \
     HardwareInterfaces/IAR60xPowerControl.h \
     DataTypes/ConnectionData.h \
-    XMLSerializer.h
+    XMLSerializer.h \
+    Libs/TinyXML2/tinyxml2.h
 unix {
     target.path = /usr/lib
     INSTALLS += target

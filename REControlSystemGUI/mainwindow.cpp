@@ -7,33 +7,36 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     driver = new AR60xHWDriver();
-    bool isOk = driver->loadConfig("config_default.json");
 
-    if(!isOk)
-    {
-        qDebug() << "load config file failed" << endl;
-        exit(0);
-    }
-    else
-    {
-        qDebug() << "load config file success" << endl;
-    }
+    driver->saveConfig("config.xml");
 
-    driver->initPackets();
+//    bool isOk = driver->loadConfig("config_default.json");
 
-    qDebug() << "init packets success" << endl;
+//    if(!isOk)
+//    {
+//        qDebug() << "load config file failed" << endl;
+//        exit(0);
+//    }
+//    else
+//    {
+//        qDebug() << "load config file success" << endl;
+//    }
 
-    driver->robotConnect();
-    driver->SupplySetState(PowerData::Supply12V, true);
+//    driver->initPackets();
 
-    int lowerLimit = driver->getRobotDesc()->getJoints()->at(1).limits.lowerLimit;
-    int upperLimit = driver->getRobotDesc()->getJoints()->at(1).limits.upperLimit;
+//    qDebug() << "init packets success" << endl;
 
-    ui->horizontalSlider->setMinimum(lowerLimit);
-    ui->horizontalSlider->setMaximum(upperLimit);
-    ui->horizontalSlider->setValue(0);
+//    driver->robotConnect();
+//    driver->SupplySetState(PowerData::Supply12V, true);
 
-    qDebug() << "joint 1 prepaired for trace" << endl;
+//    int lowerLimit = driver->getRobotDesc()->getJoints()->at(1).limits.lowerLimit;
+//    int upperLimit = driver->getRobotDesc()->getJoints()->at(1).limits.upperLimit;
+
+//    ui->horizontalSlider->setMinimum(lowerLimit);
+//    ui->horizontalSlider->setMaximum(upperLimit);
+//    ui->horizontalSlider->setValue(0);
+
+//    qDebug() << "joint 1 prepaired for trace" << endl;
 }
 
 MainWindow::~MainWindow()
