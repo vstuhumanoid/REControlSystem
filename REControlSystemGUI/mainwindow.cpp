@@ -12,15 +12,16 @@ MainWindow::MainWindow(QWidget *parent) :
     if(!isOk)
     {
         qDebug() << "load config file failed" << endl;
+        exit(0);
     }
     else
     {
-        qDebug() << "load config file succes" << endl;
+        qDebug() << "load config file success" << endl;
     }
 
     driver->initPackets();
 
-    qDebug() << "init packets succes" << endl;
+    qDebug() << "init packets success" << endl;
 
     driver->robotConnect();
     driver->SupplySetState(PowerData::Supply12V, true);
@@ -47,6 +48,8 @@ void MainWindow::on_pushButton_clicked()
     driver->JointSetPosition(1, driver->JointGetPosition(1));
     driver->JointSetState(1, JointState::TRACE);
     qDebug() << "joint 1 set for trace" << endl;
+
+    driver->ser("dom.xml");
 }
 
 void MainWindow::on_ButtonOn_clicked()

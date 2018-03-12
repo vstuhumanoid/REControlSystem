@@ -12,6 +12,8 @@
 #include "HardwareInterfaces/IAR60xPowerState.h"
 #include "HardwareInterfaces/IAR60xSensorState.h"
 
+#include "XMLSerializer.h"
+
 #include "UDPConnection.h"
 
 #include <string>
@@ -39,6 +41,8 @@ private:
     UDPConnection *connection;
     AR60xRecvPacket *recvPacket;
     AR60xSendPacket *sendpacket;
+
+    XMLSerializer * XMLser;
 
     struct ConnectionSettings
     {
@@ -88,6 +92,8 @@ public:
     SensorState SensorGetState(int sensor) override;
 
     AR60xDescription *getRobotDesc();
+
+    void ser(std::string fileName);
 
 };
 

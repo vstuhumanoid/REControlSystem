@@ -299,6 +299,12 @@ AR60xDescription *AR60xHWDriver::getRobotDesc()
     return desc;
 }
 
+void AR60xHWDriver::ser(std::string fileName)
+{
+    XMLser = new XMLSerializer();
+    XMLser->Serialize(fileName);
+}
+
 bool AR60xHWDriver::saveConfig(std::string fileName)
 {
 //    JointData joint;

@@ -7,6 +7,7 @@
 QT -= gui
 QT += network
 QT += core
+QT += xml
 
 TARGET = AR60xHWDriver
 TEMPLATE = lib
@@ -23,7 +24,8 @@ SOURCES += AR60xHWDriver.cpp \
     DataTypes/JointData.cpp \
     DataTypes/PowerData.cpp \
     DataTypes/SensorData.cpp \
-    DataTypes/ConnectionData.cpp
+    DataTypes/ConnectionData.cpp \
+    XMLSerializer.cpp
 
 HEADERS += AR60xHWDriver.h \
     RobotDescription/AR60xDescription.h \
@@ -42,7 +44,8 @@ HEADERS += AR60xHWDriver.h \
     DataTypes/PowerData.h \
     DataTypes/SensorData.h \
     HardwareInterfaces/IAR60xPowerControl.h \
-    DataTypes/ConnectionData.h
+    DataTypes/ConnectionData.h \
+    XMLSerializer.h
 unix {
     target.path = /usr/lib
     INSTALLS += target
