@@ -1,0 +1,12 @@
+<config>
+    <joints>
+        <joint number="1" name="joint 1" channel="2" offset="34455" isReverce="false" isEnable="false">
+            <gains proportional="1200" integral="6" derivative="5"/>
+            <limits lowerLimit="-1300" upperLimit="1500"/>
+        </joint>
+        <joint number="2" name="joint 2" channel="2" offset="34455" isReverce="false" isEnable="false">
+            <gains proportional="1200" integral="6" derivative="5"/>
+            <limits lowerLimit="-1300" upperLimit="1500"/>
+        </joint>
+    </joints>
+</config>

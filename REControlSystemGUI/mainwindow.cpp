@@ -6,7 +6,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    driver = new AR60xHWDriver();
+
+    _logger = new Logger();
+    driver = new AR60xHWDriver(_logger);
 
     driver->saveConfig("config.xml");
 

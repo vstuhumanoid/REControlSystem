@@ -137,9 +137,11 @@ bool AR60xHWDriver::deserialize(std::string fileName)
     return true;
 }
 
-AR60xHWDriver::AR60xHWDriver()
+AR60xHWDriver::AR60xHWDriver(ILogger *logger)
 {
+    this->_logger = logger;
     desc = new AR60xDescription();
+    _logger->addMessage("AR600xHWDriver created", ILogger::Info);
 }
 
 bool AR60xHWDriver::loadConfig(std::string fileName)

@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 #include "../AR60xHWDriver/AR60xHWDriver.h"
+#include "../REControlSystemInterfaces/ILogger.h"
+#include "Logger.h"
 
 namespace Ui {
 class MainWindow;
@@ -25,7 +27,7 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-
+    Logger *_logger;
     AR60xHWDriver *driver;
 };
 

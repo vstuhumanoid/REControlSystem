@@ -12,6 +12,8 @@
 #include "HardwareInterfaces/IAR60xPowerState.h"
 #include "HardwareInterfaces/IAR60xSensorState.h"
 
+#include "../REControlSystemInterfaces/ILogger.h"
+
 #include "XMLSerializer.h"
 
 #include "UDPConnection.h"
@@ -34,6 +36,7 @@ class AR60xHWDriver :
         IAR60xSensorState
 {
 private:
+    ILogger *_logger;
     AR60xDescription * desc;
     bool serialize(std::string fileName);
     bool deserialize(std::string fileName);
@@ -54,7 +57,7 @@ private:
 
     ConnectionSettings connectionData;
 public:
-    AR60xHWDriver();
+    AR60xHWDriver(ILogger *logger);
     bool saveConfig(std::string fileName);
     bool loadConfig(std::string fileName);
     void initPackets();
