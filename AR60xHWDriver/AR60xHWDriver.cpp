@@ -146,7 +146,9 @@ AR60xHWDriver::AR60xHWDriver(ILogger *logger)
 
 bool AR60xHWDriver::loadConfig(std::string fileName)
 {
-    return deserialize(fileName);
+    XMLSerializer *serializer = new XMLSerializer();
+    return serializer->deserialize(fileName, desc, &connectionData);
+    //return deserialize(fileName);
 }
 
 void AR60xHWDriver::initPackets()
@@ -301,74 +303,68 @@ AR60xDescription *AR60xHWDriver::getRobotDesc()
     return desc;
 }
 
-void AR60xHWDriver::ser(std::string fileName)
-{
-    XMLser = new XMLSerializer();
-    XMLser->serialize(fileName, desc);
-}
-
 bool AR60xHWDriver::saveConfig(std::string fileName)
 {
-    JointData joint;
-    joint.channel = 2;
-    joint.isEnable = false;
-    joint.isReverce = false;
-    joint.name = "joint 1";
-    joint.offset = 34455;
-    joint.number = 1;
+//    JointData joint;
+//    joint.channel = 2;
+//    joint.isEnable = false;
+//    joint.isReverce = false;
+//    joint.name = "joint 1";
+//    joint.offset = 34455;
+//    joint.number = 1;
 
-    JointData::PIDGains gates;
-    gates.derivative = 5;
-    gates.integral = 6;
-    gates.proportional = 1200;
+//    JointData::PIDGains gates;
+//    gates.derivative = 5;
+//    gates.integral = 6;
+//    gates.proportional = 1200;
 
-    joint.gains = gates;
+//    joint.gains = gates;
 
-    JointData::JointLimits limits;
-    limits.lowerLimit = -1300;
-    limits.upperLimit = 1500;
+//    JointData::JointLimits limits;
+//    limits.lowerLimit = -1300;
+//    limits.upperLimit = 1500;
 
-    joint.limits = limits;
+//    joint.limits = limits;
 
-    desc->joints[1] = joint;
+//    desc->joints[1] = joint;
 
-    JointData joint2;
+//    JointData joint2;
 
-    joint2.number = 2;
+//    joint2.number = 2;
 
-    joint2.channel = 2;
-    joint2.isEnable = false;
-    joint2.isReverce = false;
-    joint2.name = "joint 2";
-    joint2.offset = 34455;
+//    joint2.channel = 2;
+//    joint2.isEnable = false;
+//    joint2.isReverce = false;
+//    joint2.name = "joint 2";
+//    joint2.offset = 34455;
 
-    gates.derivative = 5;
-    gates.integral = 6;
-    gates.proportional = 1200;
+//    gates.derivative = 5;
+//    gates.integral = 6;
+//    gates.proportional = 1200;
 
-    joint2.gains = gates;
+//    joint2.gains = gates;
 
-    limits.lowerLimit = -1300;
-    limits.upperLimit = 1500;
+//    limits.lowerLimit = -1300;
+//    limits.upperLimit = 1500;
 
-    joint2.limits = limits;
+//    joint2.limits = limits;
 
-    desc->joints[2] = joint2;
+//    desc->joints[2] = joint2;
 
-    SensorData sensor1;
-    sensor1.number = 1;
-    sensor1.name = "Датчик скорости";
-    sensor1.channel = 1;
+//    SensorData sensor1;
+//    sensor1.number = 1;
+//    sensor1.name = "Датчик скорости";
+//    sensor1.channel = 1;
 
-    SensorData sensor2;
-    sensor2.number = 2;
-    sensor2.name = "Датчик давления";
-    sensor2.channel = 2;
+//    SensorData sensor2;
+//    sensor2.number = 2;
+//    sensor2.name = "Датчик давления";
+//    sensor2.channel = 2;
 
-    desc->sensors[1] = sensor1;
-    desc->sensors[2] = sensor2;
+//    desc->sensors[1] = sensor1;
+//    desc->sensors[2] = sensor2;
 
     XMLser = new XMLSerializer();
-    return XMLser->serialize(fileName, desc);
+    return XMLser->serialize(fileName, desc, &connectionData);
     //return serialize(fileName);
 }

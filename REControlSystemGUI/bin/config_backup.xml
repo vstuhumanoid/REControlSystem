@@ -1,4 +1,5 @@
 <config>
+	<connection host="192.169.1.10" recvPort="10001" sendDelay="5" sendPort="10001"/>
     <joints>
         <joint number="1" name="Стопа Y (R)" channel="1" offset="-114" isReverce="false" isEnable="true">
             <gains proportional="900" integral="2" derivative="1"/>
@@ -85,4 +86,20 @@
             <limits lowerLimit="-2500" upperLimit="2500"/>
         </joint>
     </joints>
+	<sensors>
+        <sensor number="1" name="Акселерометр X" channel="14"/>
+        <sensor number="2" name="Акселерометр Y" channel="14"/>
+		<sensor number="3" name="Акселерометр Z" channel="14"/>
+		<sensor number="4" name="Гироскоп X" channel="14"/>
+		<sensor number="5" name="Гироскоп Y" channel="14"/>
+		<sensor number="6" name="Гироскоп Z" channel="14"/>
+		<sensor number="7" name="Давление на левой ноге 0" channel="15"/>
+		<sensor number="8" name="Давление на левой ноге 1" channel="15"/>
+		<sensor number="9" name="Давление на левой ноге 2" channel="15"/>
+		<sensor number="10" name="Давление на левой ноге 3" channel="15"/>
+		<sensor number="11" name="Давление на правой ноге 0" channel="16"/>
+		<sensor number="12" name="Давление на правой ноге 1" channel="16"/>
+		<sensor number="13" name="Давление на правой ноге 2" channel="16"/>
+		<sensor number="14" name="Давление на правой ноге 3" channel="16"/>
+    </sensors>
 </config>

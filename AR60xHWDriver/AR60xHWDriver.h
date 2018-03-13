@@ -47,15 +47,7 @@ private:
 
     XMLSerializer * XMLser;
 
-    struct ConnectionSettings
-    {
-        std::string host;
-        int sendPort;
-        int recvPort;
-        int sendDelay;
-    };
-
-    ConnectionSettings connectionData;
+    ConnectionData connectionData;
 public:
     AR60xHWDriver(ILogger *logger);
     bool saveConfig(std::string fileName);
@@ -95,8 +87,6 @@ public:
     SensorState SensorGetState(int sensor) override;
 
     AR60xDescription *getRobotDesc();
-
-    void ser(std::string fileName);
 
 };
 

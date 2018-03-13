@@ -5,7 +5,7 @@ XMLSerializer::XMLSerializer()
 
 }
 
-bool XMLSerializer::deserialize(std::string fileName)
+bool XMLSerializer::deserialize(std::string fileName, AR60xDescription * desc, ConnectionData * conn)
 {
     XMLDocument document;
     XMLError eResult =  document.LoadFile(fileName.c_str());
@@ -16,10 +16,20 @@ bool XMLSerializer::deserialize(std::string fileName)
 
     XMLElement *root = document.FirstChildElement();
 
+    XMLElement *connection = 0;
     XMLElement *joints = 0;
     XMLElement *sensors = 0;
     XMLElement *jointData = 0;
     XMLElement *sensorData = 0;
+
+    connection = root->FirstChildElement("connection");
+
+    ConnectionData connectionData;
+    const char* host = connection->Attribute("host");
+    connectionData.host = std::string(host);
+    connection->QueryAttribute("recvPort", &connectionData.recvPort);
+    connection->QueryAttribute("sendDelay", &connectionData.sendDelay);
+    connection->QueryAttribute("sendPort", &connectionData.sendPort);
 
     joints = root->FirstChildElement("joints");
     jointData = joints->FirstChildElement("joint");
@@ -34,7 +44,8 @@ bool XMLSerializer::deserialize(std::string fileName)
 
         JointData joint;
         jointData->QueryAttribute("number", &joint.number);
-        jointData->Attribute("name", joint.name.c_str());
+        const char* name = jointData->Attribute("name");
+        joint.name = std::string(name);
         jointData->QueryAttribute("channel", &joint.channel);
 
         XMLElement *jointGains = jointData->FirstChildElement("gains");
@@ -66,7 +77,8 @@ bool XMLSerializer::deserialize(std::string fileName)
     {
         SensorData sensor;
         sensorData->QueryAttribute("number", &sensor.number);
-        sensorData->Attribute("name", sensor.name.c_str());
+        const char* name = sensorData->Attribute("name");
+        sensor.name = std::string(name);
         sensorData->QueryAttribute("channel", &sensor.channel);
 
         sensorsMap[sensor.number] = sensor;
@@ -74,16 +86,26 @@ bool XMLSerializer::deserialize(std::string fileName)
         sensorData = sensorData->NextSiblingElement("sensor");
     }
 
+    desc->joints = jointsMap;
+    desc->sensors = sensorsMap;
+    *conn = connectionData;
+
     return true;
 }
 
-bool XMLSerializer::serialize(std::string fileName, AR60xDescription * desc)
+bool XMLSerializer::serialize(std::string fileName, AR60xDescription * desc, ConnectionData * conn)
 {
     XMLDocument document;
     XMLNode * root = document.NewElement("config");
 
+    XMLElement *connectionData = document.NewElement("connection");
+    connectionData->SetAttribute("host", conn->host.c_str() );
+    connectionData->SetAttribute("recvPort", conn->recvPort);
+    connectionData->SetAttribute("sendDelay", conn->sendDelay);
+    connectionData->SetAttribute("sendPort", conn->sendPort);
+    root->InsertEndChild(connectionData);
+
     XMLElement *joints = document.NewElement("joints");
-    XMLElement *sensors = document.NewElement("sensors");
 
     for(auto it = desc->joints.begin(); it != desc->joints.end(); ++it)
     {
@@ -113,6 +135,21 @@ bool XMLSerializer::serialize(std::string fileName, AR60xDescription * desc)
     }
 
     root->InsertEndChild(joints);
+    XMLElement *sensors = document.NewElement("sensors");
+
+    for(auto it = desc->sensors.begin(); it != desc->sensors.end(); ++it)
+    {
+        SensorData sensor = (*it).second;
+
+        XMLElement *sensorData = document.NewElement("sensor");
+        sensorData->SetAttribute("number", sensor.number);
+        sensorData->SetAttribute("name", sensor.name.c_str() );
+        sensorData->SetAttribute("channel", sensor.channel);
+
+        sensors->InsertEndChild(sensorData);
+    }
+
+    root->InsertEndChild(sensors);
     document.InsertEndChild(root);
 
     XMLError eResult = document.SaveFile(fileName.c_str());
